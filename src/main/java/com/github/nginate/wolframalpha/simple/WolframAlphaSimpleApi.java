@@ -58,7 +58,6 @@ public interface WolframAlphaSimpleApi {
      */
     @RequestLine("GET /v1/simple?i={literal}" +
             "&appid={appid}" +
-            "&latlong={latlong}" +
             "&fontsize={fontsize}" +
             "&width={width}" +
             "&timeout={timeout}")
@@ -127,7 +126,6 @@ public interface WolframAlphaSimpleApi {
      */
     @RequestLine("GET /v1/simple?i={literal}" +
             "&appid={appid}" +
-            "&latlong={latlong}" +
             "&layout={layout}" +
             "&background={background}" +
             "&foreground={foreground}" +

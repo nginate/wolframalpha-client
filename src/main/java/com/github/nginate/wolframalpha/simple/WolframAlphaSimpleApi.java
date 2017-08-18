@@ -15,33 +15,33 @@ import feign.RequestLine;
  * <p>
  * Note: The Simple API does not support disambiguation, drilldown or asynchronous results delivery; it returns only a
  * single, static image. For these advanced features, use the Full Results API.
+ * <p>
+ * <p> HTTP Status 501
+ * <p>
+ * This status is returned if a given input value cannot be interpreted by this API. This is commonly caused by input
+ * that is blank, misspelled, poorly formatted or otherwise unintelligible. You may occasionally receive this status
+ * when requesting information on topics that are restricted or not covered.
+ * <p>
+ * HTTP Status 400
+ * <p>
+ * This status indicates that the API did not find an input parameter while parsing. In most cases, this can be fixed by
+ * checking that you have used the correct syntax for including the i parameter.
+ * <p>
+ * Invalid appid (Error 1)
+ * <p>
+ * This error is returned when a request contains an invalid option for the appid parameter. Double-check that your
+ * AppID is typed correctly and that your appid parameter is using the correct syntax.
+ * <p>
+ * Appid missing (Error 2)
+ * <p>
+ * This error is returned when a request does not contain any option for the appid parameter. Double-check that your
+ * AppID is typed correctly and that your appid parameter is using the correct syntax.
  *
  * @see <a href="http://products.wolframalpha.com/simple-api/documentation/">documentation reference</a>
  */
 public interface WolframAlphaSimpleApi {
     /**
-     * this call will return an image with informational elements relating to the input.
-     * <p>
-     * HTTP Status 501
-     * <p>
-     * This status is returned if a given input value cannot be interpreted by this API. This is commonly caused by
-     * input that is blank, misspelled, poorly formatted or otherwise unintelligible. You may occasionally receive this
-     * status when requesting information on topics that are restricted or not covered.
-     * <p>
-     * HTTP Status 400
-     * <p>
-     * This status indicates that the API did not find an input parameter while parsing. In most cases, this can be
-     * fixed by checking that you have used the correct syntax for including the i parameter.
-     * <p>
-     * Invalid appid (Error 1)
-     * <p>
-     * This error is returned when a request contains an invalid option for the appid parameter. Double-check that your
-     * AppID is typed correctly and that your appid parameter is using the correct syntax.
-     * <p>
-     * Appid missing (Error 2)
-     * <p>
-     * This error is returned when a request does not contain any option for the appid parameter. Double-check that your
-     * AppID is typed correctly and that your appid parameter is using the correct syntax.
+     * This call will return an image with informational elements relating to the input.
      *
      * @param literal  URL-encoded input for your query
      * @param appId    The appid parameter tells your query which AppID to use
@@ -70,28 +70,7 @@ public interface WolframAlphaSimpleApi {
     }
 
     /**
-     * this call will return an image with informational elements relating to the input.
-     * <p>
-     * HTTP Status 501
-     * <p>
-     * This status is returned if a given input value cannot be interpreted by this API. This is commonly caused by
-     * input that is blank, misspelled, poorly formatted or otherwise unintelligible. You may occasionally receive this
-     * status when requesting information on topics that are restricted or not covered.
-     * <p>
-     * HTTP Status 400
-     * <p>
-     * This status indicates that the API did not find an input parameter while parsing. In most cases, this can be
-     * fixed by checking that you have used the correct syntax for including the i parameter.
-     * <p>
-     * Invalid appid (Error 1)
-     * <p>
-     * This error is returned when a request contains an invalid option for the appid parameter. Double-check that your
-     * AppID is typed correctly and that your appid parameter is using the correct syntax.
-     * <p>
-     * Appid missing (Error 2)
-     * <p>
-     * This error is returned when a request does not contain any option for the appid parameter. Double-check that your
-     * AppID is typed correctly and that your appid parameter is using the correct syntax.
+     * This call will return an image with informational elements relating to the input.
      *
      * @param literal    URL-encoded input for your query
      * @param appId      The appid parameter tells your query which AppID to use

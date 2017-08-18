@@ -1,24 +1,24 @@
-package com.github.nginate.wolframalpha.shortanswer;
+package com.github.nginate.wolframalpha.spoken;
 
 import com.github.nginate.wolframalpha.model.Units;
 import feign.Param;
 import feign.RequestLine;
 
 /**
- * The Short Answers API returns a single plain text result directly from Wolfram|Alpha. In general, this text is taken
- * directly from the Result pod of Wolfram|Alpha output. This API type is designed to deliver brief answers in the most
- * basic format possible. It is implemented in a standard REST protocol using HTTP GET requests.
+ * The Spoken Results API returns text results phrased in full sentence form. This API is ideal for applications that
+ * use a text-to-speech component to deliver a spoken result to the user. It is implemented in a standard REST protocol
+ * using HTTP GET requests.
  * <p>
  * Because this API is designed to return a single result, queries may fail if no sufficiently short result can be
  * found. Although the majority of data available through the Wolfram|Alpha website is also available through this API,
  * certain subjects may be restricted by default.
  * <p>
- * <p>
  * HTTP Status 501
  * <p>
  * This status is returned if a given input value cannot be interpreted by this API. This is commonly caused by input
- * that is blank, misspelled, poorly formatted or otherwise unintelligible. You may occasionally receive this status
- * when requesting information on topics that are restricted or not covered.
+ * that is misspelled, poorly formatted or otherwise unintelligible. Because this API is designed to return a single
+ * result, this message may appear if no sufficiently short result can be found. You may occasionally receive this
+ * status when requesting information on topics that are restricted or not covered.
  * <p>
  * HTTP Status 400
  * <p>
@@ -32,14 +32,16 @@ import feign.RequestLine;
  * <p>
  * Appid missing (Error 2)
  * <p>
- * This error is returned when a request does not contain any option for the appid parameter. Double-check that your
- * AppID is typed correctly and that your appid parameter is using the correct syntax.
+ * This error is returned when a request does not contain any option for the appid parameter. Double-check that you have
+ * entered an AppID and that your appid parameter is using the correct syntax.
+ *
+ * @see <a href="http://products.wolframalpha.com/spoken-results-api/documentation/">documentation reference</>
  */
-public interface ShortAnswersApi {
+public interface SpokenResultsApi {
 
     /**
-     * When executed with a valid AppID, this URL will return a short line of text with a computed response to your
-     * query. Uses same default timeout as API itself - 5 seconds
+     * When executed with a valid AppID, this URL will return a single line of conversational text with a computed
+     * response to your query. Uses same default timeout as API itself - 5 seconds
      *
      * @param literal URL-encoded input for your query
      * @param appId   The appid parameter tells your query which AppID to use
@@ -47,18 +49,18 @@ public interface ShortAnswersApi {
      *                (either "metric" or "imperial"). By default, the system will use your location to determine this
      *                setting. Adding "units=metric" to our sample query displays the resulting altitudes in meters
      *                instead of feet
-     * @return plain text with response
+     * @return text results phrased in full sentence form
      */
-    @RequestLine("GET /v1/result?i={literal}&appid={appid}&units={units}")
-    default String getShortAnswer(@Param("literal") String literal,
-                                  @Param("appid") String appId,
-                                  @Param("units") Units units) {
-        return getShortAnswer(literal, appId, units, 5);
+    @RequestLine("GET /v1/spoken?i={literal}&appid={appid}&units={units}")
+    default String getSpokenResults(@Param("literal") String literal,
+                                    @Param("appid") String appId,
+                                    @Param("units") Units units) {
+        return getSpokenResults(literal, appId, units, 5);
     }
 
     /**
-     * When executed with a valid AppID, this URL will return a short line of text with a computed response to your
-     * query
+     * When executed with a valid AppID, this URL will return a single line of conversational text with a computed
+     * response to your query
      *
      * @param literal URL-encoded input for your query
      * @param appId   The appid parameter tells your query which AppID to use
@@ -69,11 +71,11 @@ public interface ShortAnswersApi {
      * @param timeout This parameter specifies the maximum amount of time (in seconds) allowed to process a query, with
      *                a default value of "5". It is primarily used to optimize response times in applications, although
      *                it may also affect the number and type of results returned by the Simple API.
-     * @return plain text with response
+     * @return text results phrased in full sentence form
      */
-    @RequestLine("GET /v1/result?i={literal}&appid={appid}&units={units}&timeout={timeout}")
-    String getShortAnswer(@Param("literal") String literal,
-                          @Param("appid") String appId,
-                          @Param("units") Units units,
-                          @Param("timeout") int timeout);
+    @RequestLine("GET /v1/spoken?i={literal}&appid={appid}&units={units}&timeout={timeout}")
+    String getSpokenResults(@Param("literal") String literal,
+                            @Param("appid") String appId,
+                            @Param("units") Units units,
+                            @Param("timeout") int timeout);
 }

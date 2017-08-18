@@ -61,4 +61,5 @@
     </if>
 
     <logger name="com.github.nginate" level="DEBUG"/>
+    <logger name="feign.Logger" level="TRACE"/>
 </configuration>

@@ -1,0 +1,660 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<queryresult success='true'
+             error='false'
+             numpods='21'
+             datatypes='ACS,Airport,City,Country,Hospital,MetropolitanArea,Mountain,NuclearExplosion,NuclearReactor,Ocean,UrbanArea,USCounty,USState,Waterfall'
+             timedout='Data,Character'
+             timedoutpods=''
+             timing='12.415000000000001'
+             parsetiming='0.424'
+             parsetimedout='false'
+             recalculate='http://www1.wolframalpha.com/api/v2/recalc.jsp?id=MSPa2891cc71fh22a7613f400005d4i6g9fi4319cic2609830911312487271'
+             id='MSPa2901cc71fh22a7613f4000062d8ida386a1ea2i'
+             host='http://www1.wolframalpha.com'
+             server='13'
+             related='http://www1.wolframalpha.com/api/v2/relatedQueries.jsp?id=MSPa2911cc71fh22a7613f4000039ae591ifh0403b92609830911312487271'
+             version='2.6'>
+    <pod title='Input interpretation'
+         scanner='Identity'
+         id='Input'
+         position='100'
+         error='false'
+         numsubpods='1'>
+        <subpod title=''>
+            <img src='http://www1.wolframalpha.com/Calculate/MSP/MSP2921cc71fh22a7613f4000053hi82f5c3bbie28?MSPStoreType=image/gif&amp;s=13'
+                 alt='California | capital'
+                 title='California | capital'
+                 width='140'
+                 height='23' />
+            <plaintext>California | capital</plaintext>
+        </subpod>
+    </pod>
+    <pod title='Result'
+         scanner='Data'
+         id='Result'
+         position='200'
+         error='false'
+         numsubpods='1'
+         primary='true'>
+        <subpod title=''>
+            <img src='http://www1.wolframalpha.com/Calculate/MSP/MSP2931cc71fh22a7613f400001a3i7iefdf11d7c7?MSPStoreType=image/gif&amp;s=13'
+                 alt='Sacramento, California, United States'
+                 title='Sacramento, California, United States'
+                 width='246'
+                 height='18' />
+            <plaintext>Sacramento, California, United States</plaintext>
+        </subpod>
+    </pod>
+    <pod title='Populations'
+         scanner='Data'
+         id='Population:CityData'
+         position='300'
+         error='false'
+         numsubpods='1'>
+        <subpod title=''>
+            <img src='http://www1.wolframalpha.com/Calculate/MSP/MSP2941cc71fh22a7613f4000012ce0h95g6c36di3?MSPStoreType=image/gif&amp;s=13'
+                 alt='city population | 490712 people  (country rank: 34th)  (2015 estimate)
+urban area population | 1.393 million people  (Sacramento urban area)  (country rank: 28th)  (2000 estimate)
+metro area population | 2.176 million people  (Sacramento metro area)  (country rank: 25th)  (2011 estimate)'
+                 title='city population | 490712 people  (country rank: 34th)  (2015 estimate)
+urban area population | 1.393 million people  (Sacramento urban area)  (country rank: 28th)  (2000 estimate)
+metro area population | 2.176 million people  (Sacramento metro area)  (country rank: 25th)  (2011 estimate)'
+                 width='546'
+                 height='134' />
+            <plaintext>city population | 490712 people  (country rank: 34th)  (2015 estimate)
+                urban area population | 1.393 million people  (Sacramento urban area)  (country rank: 28th)  (2000 estimate)
+                metro area population | 2.176 million people  (Sacramento metro area)  (country rank: 25th)  (2011 estimate)</plaintext>
+        </subpod>
+        <states count='1'>
+            <state name='Show history'
+                   input='Population:CityData__Show history' />
+        </states>
+    </pod>
+    <pod title='Location'
+         scanner='Data'
+         id='Location:CityData'
+         position='400'
+         error='false'
+         numsubpods='1'>
+        <subpod title=''>
+            <img src='http://www1.wolframalpha.com/Calculate/MSP/MSP2951cc71fh22a7613f400005gad9d39hi519i92?MSPStoreType=image/gif&amp;s=13'
+                 alt=''
+                 title=''
+                 width='328'
+                 height='177' />
+            <plaintext></plaintext>
+        </subpod>
+        <states count='2'>
+            <state name='World map'
+                   input='Location:CityData__World map' />
+            <state name='Show coordinates'
+                   input='Location:CityData__Show coordinates' />
+        </states>
+        <infos count='1'>
+            <info>
+                <link url='http://maps.google.com?ie=UTF8&amp;z=12&amp;t=k&amp;ll=38.5666%2C-121.469&amp;q=38.5666%20N%2C%20121.469%20W'
+                      text='Satellite image' />
+            </info>
+        </infos>
+    </pod>
+    <pod title='Local map'
+         scanner='Data'
+         id='Map:CityData'
+         position='500'
+         error='false'
+         numsubpods='1'>
+        <subpod title=''>
+            <img src='http://www1.wolframalpha.com/Calculate/MSP/MSP2961cc71fh22a7613f400003b70b8h7fbcfh5ce?MSPStoreType=image/gif&amp;s=13'
+                 alt=''
+                 title=''
+                 width='550'
+                 height='278' />
+            <plaintext></plaintext>
+        </subpod>
+        <states count='2'>
+            <statelist count='13'
+                       value='40 miles across'
+                       delimiters=''>
+                <state name='5 miles across'
+                       input='Map:CityData__5 miles across' />
+                <state name='10 miles across'
+                       input='Map:CityData__10 miles across' />
+                <state name='20 miles across'
+                       input='Map:CityData__20 miles across' />
+                <state name='40 miles across'
+                       input='Map:CityData__40 miles across' />
+                <state name='80 miles across'
+                       input='Map:CityData__80 miles across' />
+                <state name='160 miles across'
+                       input='Map:CityData__160 miles across' />
+                <state name='330 miles across'
+                       input='Map:CityData__330 miles across' />
+                <state name='660 miles across'
+                       input='Map:CityData__660 miles across' />
+                <state name='1300 miles across'
+                       input='Map:CityData__1300 miles across' />
+                <state name='2600 miles across'
+                       input='Map:CityData__2600 miles across' />
+                <state name='5100 miles across'
+                       input='Map:CityData__5100 miles across' />
+                <state name='8600 miles across'
+                       input='Map:CityData__8600 miles across' />
+                <state name='17000 miles across'
+                       input='Map:CityData__17000 miles across' />
+            </statelist>
+            <state name='Metric'
+                   input='Map:CityData__Metric' />
+        </states>
+        <infos count='1'>
+            <info>
+                <link url='http://maps.google.com?ie=UTF8&amp;z=12&amp;t=k&amp;ll=38.5666%2C-121.469&amp;q=38.5666%20N%2C%20121.469%20W'
+                      text='Satellite image' />
+            </info>
+        </infos>
+    </pod>
+    <pod title='Administrative regions'
+         scanner='Data'
+         id='AdministrativeRegions:CityData'
+         position='600'
+         error='false'
+         numsubpods='1'>
+        <subpod title=''>
+            <img src='http://www1.wolframalpha.com/Calculate/MSP/MSP2971cc71fh22a7613f400001ib3d23a20hc2g89?MSPStoreType=image/gif&amp;s=13'
+                 alt='county | Sacramento County
+state | California
+country | United States'
+                 title='county | Sacramento County
+state | California
+country | United States'
+                 width='231'
+                 height='100' />
+            <plaintext>county | Sacramento County
+                state | California
+                country | United States</plaintext>
+        </subpod>
+    </pod>
+    <pod title='Current local time'
+         scanner='Data'
+         id='CurrentTime:CityData'
+         position='700'
+         error='false'
+         numsubpods='1'>
+        <subpod title=''>
+            <img src='http://www1.wolframalpha.com/Calculate/MSP/MSP2981cc71fh22a7613f4000050a9150fhhgbadae?MSPStoreType=image/gif&amp;s=13'
+                 alt='2:02 pm PST  |  Friday, February 17, 2017'
+                 title='2:02 pm PST  |  Friday, February 17, 2017'
+                 width='280'
+                 height='18' />
+            <plaintext>2:02 pm PST  |  Friday, February 17, 2017</plaintext>
+        </subpod>
+    </pod>
+    <pod title='Current weather'
+         scanner='Data'
+         id='WeatherPod:CityData'
+         position='800'
+         error='false'
+         numsubpods='1'>
+        <subpod title=''>
+            <img src='http://www1.wolframalpha.com/Calculate/MSP/MSP2991cc71fh22a7613f40000347f83ih33dbgic5?MSPStoreType=image/gif&amp;s=13'
+                 alt='57 °F  |  relative humidity: 74%  |  wind: 21 mph  |  rain, overcast'
+                 title='57 °F  |  relative humidity: 74%  |  wind: 21 mph  |  rain, overcast'
+                 width='435'
+                 height='22' />
+            <plaintext>57 °F  |  relative humidity: 74%  |  wind: 21 mph  |  rain, overcast</plaintext>
+        </subpod>
+        <states count='2'>
+            <state name='Show history'
+                   input='WeatherPod:CityData__Show history' />
+            <state name='Show metric'
+                   input='WeatherPod:CityData__Show metric' />
+        </states>
+    </pod>
+    <pod title='Demographics'
+         scanner='Data'
+         id='ACSPercentageEntrainments:ACSData'
+         position='900'
+         error='false'
+         numsubpods='1'>
+        <subpod title=''>
+            <img src='http://www1.wolframalpha.com/Calculate/MSP/MSP3001cc71fh22a7613f4000016i06db0i0d722ai?MSPStoreType=image/gif&amp;s=13'
+                 alt='race | white: 49.5%  |  Asian: 19%  |  black/African American: 13.9%  |  ...
+Hispanic origin | 26.3%
+US citizens | 89%'
+                 title='race | white: 49.5%  |  Asian: 19%  |  black/African American: 13.9%  |  ...
+Hispanic origin | 26.3%
+US citizens | 89%'
+                 width='546'
+                 height='117' />
+            <plaintext>race | white: 49.5%  |  Asian: 19%  |  black/African American: 13.9%  |  ...
+                Hispanic origin | 26.3%
+                US citizens | 89%</plaintext>
+        </subpod>
+        <states count='1'>
+            <state name='More'
+                   input='ACSPercentageEntrainments:ACSData__More' />
+        </states>
+    </pod>
+    <pod title='Educational attainment'
+         scanner='Data'
+         id='ACSEducationEntrainments:ACSData'
+         position='1000'
+         error='false'
+         numsubpods='1'>
+        <subpod title=''>
+            <img src='http://www1.wolframalpha.com/Calculate/MSP/MSP3011cc71fh22a7613f400004hdf85a5gbgfbbgi?MSPStoreType=image/gif&amp;s=13'
+                 alt='college degree and above | 37.9%  (1.05  × national average)
+high school diploma | 20.1%  (0.712  × national average)
+less than high school diploma | 17.9%  (1.25  × national average)
+(for population age 25 and older)'
+                 title='college degree and above | 37.9%  (1.05  × national average)
+high school diploma | 20.1%  (0.712  × national average)
+less than high school diploma | 17.9%  (1.25  × national average)
+(for population age 25 and older)'
+                 width='433'
+                 height='121' />
+            <plaintext>college degree and above | 37.9%  (1.05  × national average)
+                high school diploma | 20.1%  (0.712  × national average)
+                less than high school diploma | 17.9%  (1.25  × national average)
+                (for population age 25 and older)</plaintext>
+        </subpod>
+        <states count='1'>
+            <state name='Show enrollment'
+                   input='ACSEducationEntrainments:ACSData__Show enrollment' />
+        </states>
+    </pod>
+    <pod title='Income statistics'
+         scanner='Data'
+         id='ACSIncomeEntrainments:ACSData'
+         position='1100'
+         error='false'
+         numsubpods='1'>
+        <subpod title=''>
+            <img src='http://www1.wolframalpha.com/Calculate/MSP/MSP3021cc71fh22a7613f40000358gbaidf17637he?MSPStoreType=image/gif&amp;s=13'
+                 alt='median household income | $50661 per year  (US dollars per year)  (0.955  × national average)
+per capita income | $25645 per year  (US dollars per year)  (0.914  × national average)
+population below poverty line | 20.2%  (1.36  × national average)'
+                 title='median household income | $50661 per year  (US dollars per year)  (0.955  × national average)
+per capita income | $25645 per year  (US dollars per year)  (0.914  × national average)
+population below poverty line | 20.2%  (1.36  × national average)'
+                 width='546'
+                 height='134' />
+            <plaintext>median household income | $50661 per year  (US dollars per year)  (0.955  × national average)
+                per capita income | $25645 per year  (US dollars per year)  (0.914  × national average)
+                population below poverty line | 20.2%  (1.36  × national average)</plaintext>
+        </subpod>
+        <states count='1'>
+            <state name='Show distribution'
+                   input='ACSIncomeEntrainments:ACSData__Show distribution' />
+        </states>
+    </pod>
+    <pod title='Economic properties'
+         scanner='Data'
+         id='EconomicProperties:CityData'
+         position='1200'
+         error='false'
+         numsubpods='1'>
+        <subpod title=''>
+            <img src='http://www1.wolframalpha.com/Calculate/MSP/MSP3031cc71fh22a7613f400002c69b66ccf9fihdb?MSPStoreType=image/gif&amp;s=13'
+                 alt='median home price | $239500 (Sacramento metro area) (annual change: +35.47%)  (2013)
+unemployment rate | 5.7%  (October 2016)
+total sales tax rate | 8.25%'
+                 title='median home price | $239500 (Sacramento metro area) (annual change: +35.47%)  (2013)
+unemployment rate | 5.7%  (October 2016)
+total sales tax rate | 8.25%'
+                 width='546'
+                 height='117' />
+            <plaintext>median home price | $239500 (Sacramento metro area) (annual change: +35.47%)  (2013)
+                unemployment rate | 5.7%  (October 2016)
+                total sales tax rate | 8.25%</plaintext>
+        </subpod>
+    </pod>
+    <pod title='Other indicators'
+         scanner='Data'
+         id='QualityOfLife:CityData'
+         position='1300'
+         error='false'
+         numsubpods='1'>
+        <subpod title=''>
+            <img src='http://www1.wolframalpha.com/Calculate/MSP/MSP3041cc71fh22a7613f4000067bfe205dfea2df2?MSPStoreType=image/gif&amp;s=13'
+                 alt='total rate of violent crime | 2.3  × national average  (2009 estimate)
+total rate of property crime | 1.6  × national average  (2009 estimate)
+average daily traffic delay | 7.1 min/(person day)'
+                 title='total rate of violent crime | 2.3  × national average  (2009 estimate)
+total rate of property crime | 1.6  × national average  (2009 estimate)
+average daily traffic delay | 7.1 min/(person day)'
+                 width='474'
+                 height='100' />
+            <plaintext>total rate of violent crime | 2.3  × national average  (2009 estimate)
+                total rate of property crime | 1.6  × national average  (2009 estimate)
+                average daily traffic delay | 7.1 min/(person day)</plaintext>
+        </subpod>
+        <infos count='1'>
+            <info>
+                <units count='1'>
+                    <unit short='min/(person day)'
+                          long='minutes per day per person' />
+                    <img src='http://www1.wolframalpha.com/Calculate/MSP/MSP3051cc71fh22a7613f400003bd8b0aihi9bbgf7?MSPStoreType=image/gif&amp;s=13'
+                         width='285'
+                         height='26' />
+                    <img src='http://www1.wolframalpha.com/Calculate/MSP/MSP3051cc71fh22a7613f400003bd8b0aihi9bbgf7?MSPStoreType=image/gif&amp;s=13'
+                         width='285'
+                         height='26' />
+                </units>
+            </info>
+        </infos>
+    </pod>
+    <pod title='Nearby cities'
+         scanner='Data'
+         id='CityHierarchyInfo:CityData'
+         position='1400'
+         error='false'
+         numsubpods='1'>
+        <subpod title=''>
+            <img src='http://www1.wolframalpha.com/Calculate/MSP/MSP3061cc71fh22a7613f4000061cb2habhga63211?MSPStoreType=image/gif&amp;s=13'
+                 alt='Arden-Arcade, California | 5 miles east-northeast | 92186 people
+Elk Grove, California | 11 miles south-southeast | 159038 people
+Roseville, California | 16 miles north-northeast | 124519 people
+Stockton, California | 42 miles south-southeast | 297984 people
+San Francisco, California | 77 miles southwest | 825863 people
+San Jose, California | 90 miles south-southwest | 982765 people
+(straight-line distances between city centers)'
+                 title='Arden-Arcade, California | 5 miles east-northeast | 92186 people
+Elk Grove, California | 11 miles south-southeast | 159038 people
+Roseville, California | 16 miles north-northeast | 124519 people
+Stockton, California | 42 miles south-southeast | 297984 people
+San Francisco, California | 77 miles southwest | 825863 people
+San Jose, California | 90 miles south-southwest | 982765 people
+(straight-line distances between city centers)'
+                 width='493'
+                 height='193' />
+            <plaintext>Arden-Arcade, California | 5 miles east-northeast | 92186 people
+                Elk Grove, California | 11 miles south-southeast | 159038 people
+                Roseville, California | 16 miles north-northeast | 124519 people
+                Stockton, California | 42 miles south-southeast | 297984 people
+                San Francisco, California | 77 miles southwest | 825863 people
+                San Jose, California | 90 miles south-southwest | 982765 people
+                (straight-line distances between city centers)</plaintext>
+        </subpod>
+        <states count='2'>
+            <state name='Show metric'
+                   input='CityHierarchyInfo:CityData__Show metric' />
+            <state name='More'
+                   input='CityHierarchyInfo:CityData__More' />
+        </states>
+    </pod>
+    <pod title='Nearby airports'
+         scanner='Data'
+         id='AirportHierarchyInfo:CityData'
+         position='1500'
+         error='false'
+         numsubpods='1'>
+        <subpod title=''>
+            <img src='http://www1.wolframalpha.com/Calculate/MSP/MSP3071cc71fh22a7613f4000048a6giei16cg6daa?MSPStoreType=image/gif&amp;s=13'
+                 alt='Sacramento Executive Airport | 4 miles south-southwest
+McClellan Airport | 8 miles north-northeast
+Sacramento Mather Airport | 9 miles east
+Sacramento International Airport | 11 miles northwest
+Travis AFB | 33 miles southwest
+(straight-line distances between city center and airport)'
+                 title='Sacramento Executive Airport | 4 miles south-southwest
+McClellan Airport | 8 miles north-northeast
+Sacramento Mather Airport | 9 miles east
+Sacramento International Airport | 11 miles northwest
+Travis AFB | 33 miles southwest
+(straight-line distances between city center and airport)'
+                 width='425'
+                 height='165' />
+            <plaintext>Sacramento Executive Airport | 4 miles south-southwest
+                McClellan Airport | 8 miles north-northeast
+                Sacramento Mather Airport | 9 miles east
+                Sacramento International Airport | 11 miles northwest
+                Travis AFB | 33 miles southwest
+                (straight-line distances between city center and airport)</plaintext>
+        </subpod>
+        <states count='2'>
+            <state name='Show metric'
+                   input='AirportHierarchyInfo:CityData__Show metric' />
+            <state name='More'
+                   input='AirportHierarchyInfo:CityData__More' />
+        </states>
+    </pod>
+    <pod title='Nearby hospitals'
+         scanner='Data'
+         id='HospitalHierarchyInfo:CityData'
+         position='1600'
+         error='false'
+         numsubpods='1'>
+        <subpod title=''>
+            <img src='http://www1.wolframalpha.com/Calculate/MSP/MSP3081cc71fh22a7613f4000053cch10h904ahf95?MSPStoreType=image/gif&amp;s=13'
+                 alt='Mercy General Hospital | 0.9 miles east-northeast
+University of California Davis Medical Center | 1 mile southeast
+Sutter Medical Center | 2 miles east
+Sutter Center for Psychiatry | 3 miles east-southeast
+Methodist Hospital of Sacramento | 8 miles south-southeast
+(straight-line distances between city center and hospital)'
+                 title='Mercy General Hospital | 0.9 miles east-northeast
+University of California Davis Medical Center | 1 mile southeast
+Sutter Medical Center | 2 miles east
+Sutter Center for Psychiatry | 3 miles east-southeast
+Methodist Hospital of Sacramento | 8 miles south-southeast
+(straight-line distances between city center and hospital)'
+                 width='495'
+                 height='165' />
+            <plaintext>Mercy General Hospital | 0.9 miles east-northeast
+                University of California Davis Medical Center | 1 mile southeast
+                Sutter Medical Center | 2 miles east
+                Sutter Center for Psychiatry | 3 miles east-southeast
+                Methodist Hospital of Sacramento | 8 miles south-southeast
+                (straight-line distances between city center and hospital)</plaintext>
+        </subpod>
+        <states count='2'>
+            <state name='Show metric'
+                   input='HospitalHierarchyInfo:CityData__Show metric' />
+            <state name='More'
+                   input='HospitalHierarchyInfo:CityData__More' />
+        </states>
+    </pod>
+    <pod title='Notable company headquarters'
+         scanner='Data'
+         id='CompaniesInCity:CityData'
+         position='1700'
+         error='false'
+         numsubpods='1'>
+        <subpod title=''>
+            <img src='http://www1.wolframalpha.com/Calculate/MSP/MSP3091cc71fh22a7613f400003bh97i38af9aii28?MSPStoreType=image/gif&amp;s=13'
+                 alt='McClatchy | 5600 employees  (Q4 2015) | $1.001 billion per year  (Q3 2016)
+American River Bank | 99 employees  (Q3 2016) | $22.18 million per year  (Q3 2016)
+Ophthalmic Imaging Systems, Inc. | 123 employees  (Q4 2010) | $17.96 million per year  (Q1 2011)
+DUCT Utility Construction &amp; Technologies Inc | 10 employees  (Q4 2001) | $1.38 million per year  (Q4 2001)
+Firstgold Corporation | 61 employees  (Q1 2009) | $295300 per year  (Q4 2009)
+Global Digital Solutions Inc |  | '
+                 title='McClatchy | 5600 employees  (Q4 2015) | $1.001 billion per year  (Q3 2016)
+American River Bank | 99 employees  (Q3 2016) | $22.18 million per year  (Q3 2016)
+Ophthalmic Imaging Systems, Inc. | 123 employees  (Q4 2010) | $17.96 million per year  (Q1 2011)
+DUCT Utility Construction &amp; Technologies Inc | 10 employees  (Q4 2001) | $1.38 million per year  (Q4 2001)
+Firstgold Corporation | 61 employees  (Q1 2009) | $295300 per year  (Q4 2009)
+Global Digital Solutions Inc |  | '
+                 width='546'
+                 height='315' />
+            <plaintext>McClatchy | 5600 employees  (Q4 2015) | $1.001 billion per year  (Q3 2016)
+                American River Bank | 99 employees  (Q3 2016) | $22.18 million per year  (Q3 2016)
+                Ophthalmic Imaging Systems, Inc. | 123 employees  (Q4 2010) | $17.96 million per year  (Q1 2011)
+                DUCT Utility Construction &amp; Technologies Inc | 10 employees  (Q4 2001) | $1.38 million per year  (Q4 2001)
+                Firstgold Corporation | 61 employees  (Q1 2009) | $295300 per year  (Q4 2009)
+                Global Digital Solutions Inc |  | </plaintext>
+        </subpod>
+    </pod>
+    <pod title='Geographic properties'
+         scanner='Data'
+         id='GeographicProperties:CityData'
+         position='1800'
+         error='false'
+         numsubpods='1'>
+        <subpod title=''>
+            <img src='http://www1.wolframalpha.com/Calculate/MSP/MSP3101cc71fh22a7613f400005ha4hg60h19307g0?MSPStoreType=image/gif&amp;s=13'
+                 alt='elevation | 30 ft
+area | 97.915 mi^2
+population density | 5012 people/mi^2'
+                 title='elevation | 30 ft
+area | 97.915 mi^2
+population density | 5012 people/mi^2'
+                 width='276'
+                 height='100' />
+            <plaintext>elevation | 30 ft
+                area | 97.915 mi^2
+                population density | 5012 people/mi^2</plaintext>
+        </subpod>
+        <states count='1'>
+            <state name='Show metric'
+                   input='GeographicProperties:CityData__Show metric' />
+        </states>
+        <infos count='1'>
+            <info>
+                <units count='3'>
+                    <unit short='ft'
+                          long='feet' />
+                    <unit short='mi^2'
+                          long='square miles' />
+                    <unit short='people/mi^2'
+                          long='people per square mile' />
+                    <img src='http://www1.wolframalpha.com/Calculate/MSP/MSP3111cc71fh22a7613f400003f952b7865d1e808?MSPStoreType=image/gif&amp;s=13'
+                         width='232'
+                         height='74' />
+                    <img src='http://www1.wolframalpha.com/Calculate/MSP/MSP3111cc71fh22a7613f400003f952b7865d1e808?MSPStoreType=image/gif&amp;s=13'
+                         width='232'
+                         height='74' />
+                </units>
+            </info>
+        </infos>
+    </pod>
+    <pod title='Nearby features'
+         scanner='Data'
+         id='FeaturesHierarchyInfo:CityData'
+         position='1900'
+         error='false'
+         numsubpods='1'>
+        <subpod title=''>
+            <img src='http://www1.wolframalpha.com/Calculate/MSP/MSP3121cc71fh22a7613f400002iah2h4d436bd51d?MSPStoreType=image/gif&amp;s=13'
+                 alt='nuclear power site | Rancho Seco (permanent shutdown) | 24 miles southeast
+waterfall | Grouse Falls (600 feet) | 47 miles northeast
+dam | Oroville Dam (771 feet) | 67 miles north
+mountain | Pyramid Peak (9984 feet) | 73 miles east-northeast
+volcano | Mammoth Mountain (11053 feet) | 148 miles east-southeast
+(straight-line distances between city center and feature coordinates)'
+                 title='nuclear power site | Rancho Seco (permanent shutdown) | 24 miles southeast
+waterfall | Grouse Falls (600 feet) | 47 miles northeast
+dam | Oroville Dam (771 feet) | 67 miles north
+mountain | Pyramid Peak (9984 feet) | 73 miles east-northeast
+volcano | Mammoth Mountain (11053 feet) | 148 miles east-southeast
+(straight-line distances between city center and feature coordinates)'
+                 width='546'
+                 height='207' />
+            <plaintext>nuclear power site | Rancho Seco (permanent shutdown) | 24 miles southeast
+                waterfall | Grouse Falls (600 feet) | 47 miles northeast
+                dam | Oroville Dam (771 feet) | 67 miles north
+                mountain | Pyramid Peak (9984 feet) | 73 miles east-northeast
+                volcano | Mammoth Mountain (11053 feet) | 148 miles east-southeast
+                (straight-line distances between city center and feature coordinates)</plaintext>
+        </subpod>
+        <states count='2'>
+            <state name='Show metric'
+                   input='FeaturesHierarchyInfo:CityData__Show metric' />
+            <state name='More'
+                   input='FeaturesHierarchyInfo:CityData__More' />
+        </states>
+    </pod>
+    <pod title='Nearest sea'
+         scanner='Data'
+         id='OceansHierarchyInfo:CityData'
+         position='2000'
+         error='false'
+         numsubpods='1'>
+        <subpod title=''>
+            <img src='http://www1.wolframalpha.com/Calculate/MSP/MSP3131cc71fh22a7613f400005540h5ic0cdg4712?MSPStoreType=image/gif&amp;s=13'
+                 alt='Pacific Ocean (32 miles south-southwest)
+(straight-line distance between city center and shore)'
+                 title='Pacific Ocean (32 miles south-southwest)
+(straight-line distance between city center and shore)'
+                 width='290'
+                 height='36' />
+            <plaintext>Pacific Ocean (32 miles south-southwest)
+                (straight-line distance between city center and shore)</plaintext>
+        </subpod>
+        <states count='1'>
+            <state name='Show metric'
+                   input='OceansHierarchyInfo:CityData__Show metric' />
+        </states>
+    </pod>
+    <pod title='Nicknames'
+         scanner='Data'
+         id='BasicInformation:CityData'
+         position='2100'
+         error='false'
+         numsubpods='1'>
+        <subpod title=''>
+            <img src='http://www1.wolframalpha.com/Calculate/MSP/MSP3141cc71fh22a7613f4000044a9462ib2d5016c?MSPStoreType=image/gif&amp;s=13'
+                 alt='Almond Capital of the World  |  Big Tomato  |  Camellia City  |  City of Trees  |  River City'
+                 title='Almond Capital of the World  |  Big Tomato  |  Camellia City  |  City of Trees  |  River City'
+                 width='539'
+                 height='38' />
+            <plaintext>Almond Capital of the World  |  Big Tomato  |  Camellia City  |  City of Trees  |  River City</plaintext>
+        </subpod>
+    </pod>
+    <assumptions count='1'>
+        <assumption type='MultiClash'
+                    word=''
+                    template='Assuming ${word1} is referring to ${desc1}. Use &quot;${word2}&quot; as ${desc2}. Use &quot;${word3}&quot; as ${desc3}.'
+                    count='3'>
+            <value name='USState'
+                   word='California'
+                   desc='a US state'
+                   input='*MC.%7E-_*USState-' />
+            <value name='AdministrativeDivision'
+                   word='California'
+                   desc='an administrative division'
+                   input='*MC.%7E-_*AdministrativeDivision-' />
+            <value name='Word'
+                   word=''
+                   desc='a word'
+                   input='*MC.%7E-_*Word-' />
+        </assumption>
+    </assumptions>
+    <sources count='18'>
+        <source url='http://www.wolframalpha.com/sources/ACSDataSourceInformationNotes.html'
+                text='ACS data' />
+        <source url='http://www.wolframalpha.com/sources/AdministrativeDivisionDataSourceInformationNotes.html'
+                text='Administrative division data' />
+        <source url='http://www.wolframalpha.com/sources/CityDataSourceInformationNotes.html'
+                text='City data' />
+        <source url='http://www.wolframalpha.com/sources/CongestionDataSourceInformationNotes.html'
+                text='Congestion data' />
+        <source url='http://www.wolframalpha.com/sources/CountryDataSourceInformationNotes.html'
+                text='Country data' />
+        <source url='http://www.wolframalpha.com/sources/CrimeDataSourceInformationNotes.html'
+                text='Crime data' />
+        <source url='http://www.wolframalpha.com/sources/HospitalDataSourceInformationNotes.html'
+                text='Hospital data' />
+        <source url='http://www.wolframalpha.com/sources/MetropolitanAreaDataSourceInformationNotes.html'
+                text='Metropolitan area data' />
+        <source url='http://www.wolframalpha.com/sources/NuclearReactorDataSourceInformationNotes.html'
+                text='Nuclear reactor data' />
+        <source url='http://www.wolframalpha.com/sources/OpenStreetMapSourceInformationNotes.html'
+                text='Open street map' />
+        <source url='http://www.wolframalpha.com/sources/UrbanAreaDataSourceInformationNotes.html'
+                text='Urban area data' />
+        <source url='http://www.wolframalpha.com/sources/USCensusDataSourceInformationNotes.html'
+                text='US census data' />
+        <source url='http://www.wolframalpha.com/sources/USCountyDataSourceInformationNotes.html'
+                text='US county data' />
+        <source url='http://www.wolframalpha.com/sources/USEmploymentDataSourceInformationNotes.html'
+                text='US employment data' />
+        <source url='http://www.wolframalpha.com/sources/USHousingDataSourceInformationNotes.html'
+                text='US housing data' />
+        <source url='http://www.wolframalpha.com/sources/USStateDataSourceInformationNotes.html'
+                text='US state data' />
+        <source url='http://www.wolframalpha.com/sources/USTaxDataSourceInformationNotes.html'
+                text='US tax data' />
+        <source url='http://www.wolframalpha.com/sources/WeatherDataSourceInformationNotes.html'
+                text='Weather data' />
+    </sources>
+</queryresult>

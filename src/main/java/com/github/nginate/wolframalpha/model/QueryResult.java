@@ -53,7 +53,7 @@ public class QueryResult {
      * query parameters</>
      */
     @XmlAttribute(required = true)
-    private Integer timedout;
+    private List<String> timedout;
     /**
      * The time in seconds required by the parsing phase.
      */

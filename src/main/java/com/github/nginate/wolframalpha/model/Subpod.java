@@ -18,6 +18,8 @@ public class Subpod {
 
     @XmlElement
     private Image img;
+    @XmlElement(name = "imagemap")
+    private ImageMap imageMap;
     @XmlElement
     private String plaintext;
 }

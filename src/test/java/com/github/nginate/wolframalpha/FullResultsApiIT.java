@@ -1,9 +1,7 @@
 package com.github.nginate.wolframalpha;
 
 import com.github.nginate.wolframalpha.full.FullResultsApi;
-import com.github.nginate.wolframalpha.model.Pod;
-import com.github.nginate.wolframalpha.model.QueryResult;
-import com.github.nginate.wolframalpha.model.Subpod;
+import com.github.nginate.wolframalpha.model.*;
 import feign.Feign;
 import feign.Logger;
 import feign.jaxb.JAXBContextFactory;
@@ -12,10 +10,14 @@ import feign.slf4j.Slf4jLogger;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
+import static com.github.nginate.wolframalpha.model.ResultFormat.*;
 import static java.lang.Boolean.TRUE;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -26,7 +28,7 @@ public class FullResultsApiIT {
     @Before
     public void setUp() throws Exception {
         JAXBContextFactory jaxbFactory = new JAXBContextFactory.Builder()
-                .withMarshallerJAXBEncoding("UTF-8")
+                .withMarshallerJAXBEncoding(StandardCharsets.UTF_8.name())
                 .build();
 
         fullResultsApi = Feign.builder()
@@ -81,5 +83,31 @@ public class FullResultsApiIT {
         for (Pod pod : result.getPods()) {
             assertThat(pod.getSubpods()).hasSize(pod.getNumsubpods());
         }
+    }
+
+    @Test
+    public void rectanglesEmptyForNonImagemapFormat() throws Exception {
+        QueryResult result = fullResultsApi.getFullResults("france", token);
+        List<ImageRectangle> rectangles = result.getPods().stream()
+                .flatMap(pod -> pod.getSubpods().stream())
+                .map(Subpod::getImageMap)
+                .filter(Objects::nonNull)
+                .flatMap(imageMap -> imageMap.getRectangles().stream())
+                .collect(Collectors.toList());
+
+        assertThat(rectangles).isEmpty();
+    }
+
+    @Test
+    public void rectanglesNonEmptyForImagemapFormat() throws Exception {
+        QueryResult result = fullResultsApi.getFullResults("france", token, IMAGEMAP, IMAGE);
+        List<ImageRectangle> rectangles = result.getPods().stream()
+                .flatMap(pod -> pod.getSubpods().stream())
+                .map(Subpod::getImageMap)
+                .filter(Objects::nonNull)
+                .flatMap(imageMap -> imageMap.getRectangles().stream())
+                .collect(Collectors.toList());
+
+        assertThat(rectangles).isNotEmpty();
     }
 }

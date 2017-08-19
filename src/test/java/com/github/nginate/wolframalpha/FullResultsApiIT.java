@@ -110,4 +110,15 @@ public class FullResultsApiIT {
 
         assertThat(rectangles).isNotEmpty();
     }
+
+    @Test
+    public void mathMlNonEmpty() throws Exception {
+        QueryResult result = fullResultsApi.getFullResults("france", token, MATHML);
+        List<Object> mathMls = result.getPods().stream()
+                .flatMap(pod -> pod.getSubpods().stream())
+                .map(Subpod::getMathMl)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+        assertThat(mathMls).isNotEmpty();
+    }
 }

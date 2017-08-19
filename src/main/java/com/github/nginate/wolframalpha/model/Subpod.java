@@ -22,4 +22,6 @@ public class Subpod {
     private ImageMap imageMap;
     @XmlElement
     private String plaintext;
+    @XmlElement(name = "mathml")
+    private Object mathMl;
 }

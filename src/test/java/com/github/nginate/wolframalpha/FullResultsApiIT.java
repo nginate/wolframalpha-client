@@ -152,4 +152,16 @@ public class FullResultsApiIT {
                 .collect(Collectors.toList());
         assertThat(minputs).isNotEmpty();
     }
+
+    @Test
+    public void moutputResults() throws Exception {
+        QueryResult result = fullResultsApi.getFullResults("Continued fraction", token, PLAINTEXT, MOUTPUT);
+
+        List<String> moutputs = result.getPods().stream()
+                .flatMap(pod -> pod.getSubpods().stream())
+                .map(Subpod::getMoutput)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+        assertThat(moutputs).isNotEmpty();
+    }
 }

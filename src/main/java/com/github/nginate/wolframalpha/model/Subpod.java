@@ -24,4 +24,14 @@ public class Subpod {
     private String plaintext;
     @XmlElement(name = "mathml")
     private Object mathMl;
+    /**
+     * This is the text format that you see in the "Mathematica plaintext input" popup that appears when you click some
+     * results on the Wolfram|Alpha site. Some results can be generated directly by single Mathematica input
+     * expressions. For example, the "Continued fraction" pod in the Wolfram|Alpha result for the query "pi" has a
+     * Mathematica input representation of ContinuedFraction[Pi, 25]. Use this form if you want to feed the
+     * input into Mathematica or use Mathematica as an environment for manipulating results. Use the minput format
+     * type to get results in this form.
+     */
+    @XmlElement
+    private String minput;
 }

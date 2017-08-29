@@ -140,4 +140,16 @@ public class FullResultsApiIT {
             }
         }
     }
+
+    @Test
+    public void minputResults() throws Exception {
+        QueryResult result = fullResultsApi.getFullResults("Continued fraction", token, PLAINTEXT, MINPUT);
+
+        List<String> minputs = result.getPods().stream()
+                .flatMap(pod -> pod.getSubpods().stream())
+                .map(Subpod::getMinput)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+        assertThat(minputs).isNotEmpty();
+    }
 }

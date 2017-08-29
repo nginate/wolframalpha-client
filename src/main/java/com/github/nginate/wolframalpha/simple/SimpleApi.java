@@ -39,7 +39,7 @@ import feign.RequestLine;
  *
  * @see <a href="http://products.wolframalpha.com/simple-api/documentation/">documentation reference</a>
  */
-public interface WolframAlphaSimpleApi {
+public interface SimpleApi {
     /**
      * This call will return an image with informational elements relating to the input.
      *

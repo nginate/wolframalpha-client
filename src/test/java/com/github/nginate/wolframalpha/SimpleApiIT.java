@@ -1,6 +1,6 @@
 package com.github.nginate.wolframalpha;
 
-import com.github.nginate.wolframalpha.simple.WolframAlphaSimpleApi;
+import com.github.nginate.wolframalpha.simple.SimpleApi;
 import feign.Feign;
 import feign.FeignException;
 import feign.Logger;
@@ -12,8 +12,8 @@ import java.util.Properties;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class WolframAlphaSimpleApiIT {
-    private WolframAlphaSimpleApi simpleApi;
+public class SimpleApiIT {
+    private SimpleApi simpleApi;
     private String token;
 
     @Before
@@ -21,7 +21,7 @@ public class WolframAlphaSimpleApiIT {
         simpleApi = Feign.builder()
                 .logger(new Slf4jLogger())
                 .logLevel(Logger.Level.FULL)
-                .target(WolframAlphaSimpleApi.class, "https://api.wolframalpha.com");
+                .target(SimpleApi.class, "https://api.wolframalpha.com");
         Properties properties = new Properties();
         properties.load(getClass().getResourceAsStream("/application.properties"));
         token = properties.getProperty("api.token");

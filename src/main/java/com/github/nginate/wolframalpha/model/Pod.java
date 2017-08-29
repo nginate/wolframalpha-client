@@ -60,4 +60,9 @@ public class Pod {
      */
     @XmlElement(name = "subpod")
     private List<Subpod> subpods;
+    /**
+     * List of sound elements included in response if was requested
+     */
+    @XmlElement
+    private Sounds sounds;
 }

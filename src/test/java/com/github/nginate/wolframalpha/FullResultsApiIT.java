@@ -121,4 +121,23 @@ public class FullResultsApiIT {
                 .collect(Collectors.toList());
         assertThat(mathMls).isNotEmpty();
     }
+
+    @Test
+    public void audioNonEmpty() throws Exception {
+        QueryResult result = fullResultsApi.getFullResults("C major", token, SOUND);
+        List<Sounds> sounds = result.getPods().stream()
+                .map(Pod::getSounds)
+                .collect(Collectors.toList());
+
+        assertThat(sounds).isNotEmpty();
+
+        for (Sounds sound : sounds) {
+            assertThat(sound.getCount()).isGreaterThan(0);
+            assertThat(sound.getSounds()).hasSize(sound.getCount());
+
+            for (Sounds.Sound soundEntry : sound.getSounds()) {
+                assertThat(soundEntry).hasNoNullFieldsOrProperties();
+            }
+        }
+    }
 }

@@ -45,4 +45,6 @@ public class Subpod {
      */
     @XmlElement
     private String moutput;
+    @XmlElement
+    private Cell cell;
 }

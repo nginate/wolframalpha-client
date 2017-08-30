@@ -169,11 +169,13 @@ public class FullResultsApiIT {
     public void cellResults() throws Exception {
         QueryResult result = fullResultsApi.getFullResults("Continued fraction", token, PLAINTEXT, CELL);
 
-        List<String> moutputs = result.getPods().stream()
+        List<Cell> cells = result.getPods().stream()
                 .flatMap(pod -> pod.getSubpods().stream())
-                .map(Subpod::getMoutput)
+                .map(Subpod::getCell)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
-        assertThat(moutputs).isNotEmpty();
+        assertThat(cells).isNotEmpty();
+
+        cells.forEach(cell -> assertThat(cell).hasNoNullFieldsOrProperties());
     }
 }

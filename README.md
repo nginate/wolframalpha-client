@@ -1,6 +1,10 @@
 # wolframalpha-client
 Java client for wolframalpha API
 
+#### Build status
+
+[![][travis img]][travis] [![][codecovbadge img]][codecovbadge]
+
 ### Overview
 This library provides base RESTful binding to a WolframAlpha API 
 to all endpoints that have API documentation at this moment.
@@ -56,3 +60,10 @@ Supported features:<br/>
     * ImageMap bindings
     * Basic MathMl bindings - raw xml object
     * Pods/Subpods with attributes
+    
+    
+[travis]:https://travis-ci.org/nginate/wolframalpha-client
+[travis img]:https://travis-ci.org/nginate/wolframalpha-client.svg?branch=master
+
+[codecovbadge]:https://codecov.io/gh/nginate/wolframalpha-client
+[codecovbadge img]:https://codecov.io/gh/nginate/wolframalpha-client/branch/master/graph/badge.svg

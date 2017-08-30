@@ -10,6 +10,10 @@ ext {
 }
 
 apply plugin: "java"
+apply plugin: "jacoco"
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     jcenter()
@@ -36,4 +40,41 @@ dependencies {
 task wrapper(type: Wrapper) {
     gradleVersion = '4.1'
     distributionType = ALL
+}
+
+gradle.projectsEvaluated {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+    }
+}
+
+jacocoTestReport {
+    group = "report"
+    reports {
+        xml.enabled true
+        csv.enabled false
+        html.enabled false
+    }
+}
+
+test {
+    testLogging {
+        exceptionFormat = 'full'
+        showStandardStreams = true
+    }
+
+    outputs.upToDateWhen { false }
+
+    systemProperties System.properties
+    systemProperties 'logback.configurationFile' : new File(projectDir,'src/test/resources/logback.xml').absolutePath
+
+    // listen to events in the test execution lifecycle
+    beforeTest { descriptor ->
+        logger.lifecycle("Running test: " + descriptor)
+    }
+
+    // listen to standard out and standard error of the test JVM(s)
+    onOutput { descriptor, event ->
+        logger.lifecycle("Test: " + descriptor + " produced standard out/err: " + event.message )
+    }
 }

@@ -4,6 +4,8 @@ jdk:
 before_install:
   - chmod +x gradlew
 script: ./gradlew check jacocoTestReport
+after_script:
+- python html2text.py build/reports/tests/test/index.html
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 cache:

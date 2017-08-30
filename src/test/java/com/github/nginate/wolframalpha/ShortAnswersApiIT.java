@@ -19,10 +19,7 @@ public class ShortAnswersApiIT {
 
     @Before
     public void setUp() throws Exception {
-        shortAnswersApi = Feign.builder()
-                .logger(new Slf4jLogger())
-                .logLevel(Logger.Level.FULL)
-                .target(ShortAnswersApi.class, "https://api.wolframalpha.com");
+        shortAnswersApi = ClientFactory.shortAnswersApi();
         Properties properties = new Properties();
         properties.load(getClass().getResourceAsStream("/application.properties"));
         token = properties.getProperty("api.token");

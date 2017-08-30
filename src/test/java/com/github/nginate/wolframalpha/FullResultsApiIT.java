@@ -2,15 +2,9 @@ package com.github.nginate.wolframalpha;
 
 import com.github.nginate.wolframalpha.full.FullResultsApi;
 import com.github.nginate.wolframalpha.model.*;
-import feign.Feign;
-import feign.Logger;
-import feign.jaxb.JAXBContextFactory;
-import feign.jaxb.JAXBDecoder;
-import feign.slf4j.Slf4jLogger;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -27,15 +21,7 @@ public class FullResultsApiIT {
 
     @Before
     public void setUp() throws Exception {
-        JAXBContextFactory jaxbFactory = new JAXBContextFactory.Builder()
-                .withMarshallerJAXBEncoding(StandardCharsets.UTF_8.name())
-                .build();
-
-        fullResultsApi = Feign.builder()
-                .logger(new Slf4jLogger())
-                .logLevel(Logger.Level.FULL)
-                .decoder(new JAXBDecoder(jaxbFactory))
-                .target(FullResultsApi.class, "https://api.wolframalpha.com");
+        fullResultsApi = ClientFactory.fullResultsApi();
         Properties properties = new Properties();
         properties.load(getClass().getResourceAsStream("/application.properties"));
         token = properties.getProperty("api.token");

@@ -1,12 +1,8 @@
 package com.github.nginate.wolframalpha;
 
 import com.github.nginate.wolframalpha.model.Units;
-import com.github.nginate.wolframalpha.shortanswer.ShortAnswersApi;
 import com.github.nginate.wolframalpha.spoken.SpokenResultsApi;
-import feign.Feign;
 import feign.FeignException;
-import feign.Logger;
-import feign.slf4j.Slf4jLogger;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,10 +16,7 @@ public class SpokenResultsApiIT {
 
     @Before
     public void setUp() throws Exception {
-        spokenResultsApi = Feign.builder()
-                .logger(new Slf4jLogger())
-                .logLevel(Logger.Level.FULL)
-                .target(SpokenResultsApi.class, "https://api.wolframalpha.com");
+        spokenResultsApi = ClientFactory.spokenResultsApi();
         Properties properties = new Properties();
         properties.load(getClass().getResourceAsStream("/application.properties"));
         token = properties.getProperty("api.token");

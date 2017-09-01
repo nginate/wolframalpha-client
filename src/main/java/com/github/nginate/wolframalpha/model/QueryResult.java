@@ -75,4 +75,11 @@ public class QueryResult {
      */
     @XmlElement(name = "pod")
     private List<Pod> pods;
+    /**
+     * The <assumptions> element is a subelement of <queryresult>. Its content is a series of <assumption> elements. It
+     * has a count attribute, giving the number of <assumption> subelements. See the “Assumptions” section of the main
+     * text for more details.
+     */
+    @XmlElement
+    private Assumptions assumptions;
 }

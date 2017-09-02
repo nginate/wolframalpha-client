@@ -32,7 +32,7 @@ public class FullResultsApiIT {
         QueryResult result = fullResultsApi.getFullResults("How many minutes are there in an hour", token);
 
         assertThat(result).isNotNull();
-        assertThat(result).hasNoNullFieldsOrProperties();
+        assertThat(result).hasNoNullFieldsOrPropertiesExcept("assumptions");
     }
 
     @Test

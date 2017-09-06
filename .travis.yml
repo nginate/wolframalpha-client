@@ -19,7 +19,7 @@ addons:
     notification_email: legioner.alexei@gmail.com
     build_command_prepend: "./gradlew clean"
     build_command:   "./gradlew compile"
-    branch_pattern: coverity_scan
+    branch_pattern: master
 
 script: ./gradlew check jacocoTestReport
 after_script:

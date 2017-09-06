@@ -1,7 +1,9 @@
 package com.github.nginate.wolframalpha.model;
 
+import com.sun.org.apache.xerces.internal.dom.ElementNSImpl;
 import lombok.Data;
 
+import javax.xml.bind.Element;
 import javax.xml.bind.annotation.*;
 
 @Data
@@ -12,9 +14,9 @@ public class Subpod {
      * usually an empty string because most subpods have no title
      */
     @XmlAttribute
-    private String title;
+    private String title = "";
     @XmlAttribute
-    private Boolean primary;
+    private Boolean primary = false;
 
     @XmlElement
     private Image img;
@@ -23,7 +25,7 @@ public class Subpod {
     @XmlElement
     private String plaintext;
     @XmlElement(name = "mathml")
-    private Object mathMl;
+    private ElementNSImpl mathMl;
     /**
      * This is the text format that you see in the "Mathematica plaintext input" popup that appears when you click some
      * results on the Wolfram|Alpha site. Some results can be generated directly by single Mathematica input

@@ -6,6 +6,7 @@ import feign.Param;
 import feign.RequestLine;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static java.lang.String.format;
@@ -25,16 +26,21 @@ public interface FullResultsApi {
         return getFullResults(literal, appId, Arrays.asList(formats));
     }
 
+    default QueryResult getFullResultsForAssumptions(String literal, String appId, String... assumptions) {
+        return getFullResults(literal, appId, null, Arrays.asList(assumptions));
+    }
+
     default QueryResult getFullResults(String literal, String appId, List<ResultFormat> formats) {
         String serializedFormats = formats.stream()
                 .map(Enum::toString).map(String::toLowerCase)
                 .reduce((s1, s2) -> format("%s,%s", s1, s2))
                 .orElse(null);
-        return getFullResults(literal, appId, serializedFormats);
+        return getFullResults(literal, appId, serializedFormats, Collections.emptyList());
     }
 
-    @RequestLine("GET /v2/query?input={literal}&appid={appid}&format={format}")
+    @RequestLine("GET /v2/query?input={literal}&appid={appid}&format={format}&assumption={assumption}")
     QueryResult getFullResults(@Param("literal") String literal,
                                @Param("appid") String appId,
-                               @Param(value = "format") String format);
+                               @Param("format") String format,
+                               @Param("assumption") List<String> assumptions);
 }

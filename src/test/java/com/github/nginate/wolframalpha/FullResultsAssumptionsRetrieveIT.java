@@ -9,9 +9,9 @@ import org.junit.Test;
 
 import java.util.List;
 import java.util.Properties;
-import java.util.stream.Collectors;
 
 import static com.github.nginate.wolframalpha.model.Assumptions.Assumption.AssumptionType.*;
+import static com.github.nginate.wolframalpha.util.AssumptionUtil.findAssumptionByType;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class FullResultsAssumptionsRetrieveIT {
@@ -162,12 +162,6 @@ public class FullResultsAssumptionsRetrieveIT {
 
         assertThat(assumptionList).hasSize(1);
         checkAssumptionValues(assumptionList);
-    }
-
-    private List<Assumptions.Assumption> findAssumptionByType(Assumptions assumptions, AssumptionType type) {
-        return assumptions.getAssumptions().stream()
-                    .filter(assumption -> assumption.getType() == type)
-                    .collect(Collectors.toList());
     }
 
     private void checkAssumptionCount(Assumptions assumptions) {

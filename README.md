@@ -60,6 +60,8 @@ Supported features:<br/>
     * ImageMap bindings
     * Basic MathMl bindings - raw xml object
     * Pods/Subpods with attributes
+    * Assumptions
+    * Cells
     
     
 [travis]:https://travis-ci.org/nginate/wolframalpha-client

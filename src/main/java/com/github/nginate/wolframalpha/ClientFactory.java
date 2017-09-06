@@ -6,12 +6,11 @@ import com.github.nginate.wolframalpha.simple.SimpleApi;
 import com.github.nginate.wolframalpha.spoken.SpokenResultsApi;
 import feign.Feign;
 import feign.Logger;
-import feign.jaxb.JAXBContextFactory;
 import feign.jaxb.JAXBDecoder;
 import feign.slf4j.Slf4jLogger;
 import lombok.experimental.UtilityClass;
 
-import java.nio.charset.StandardCharsets;
+import static com.github.nginate.wolframalpha.util.SerializationUtil.buildJAXBFactory;
 
 /**
  * Utility configurations to provide client for particular APIs
@@ -147,14 +146,10 @@ public class ClientFactory {
      * @return Full results API client
      */
     public static FullResultsApi fullResultsApi(Logger.Level logLevel, String url) {
-        JAXBContextFactory jaxbFactory = new JAXBContextFactory.Builder()
-                .withMarshallerJAXBEncoding(StandardCharsets.UTF_8.name())
-                .build();
-
         return Feign.builder()
                 .logger(new Slf4jLogger())
                 .logLevel(logLevel)
-                .decoder(new JAXBDecoder(jaxbFactory))
+                .decoder(new JAXBDecoder(buildJAXBFactory()))
                 .target(FullResultsApi.class, url);
     }
 }

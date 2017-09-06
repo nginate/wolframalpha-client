@@ -53,7 +53,7 @@ public class Pod {
      * attribute.
      */
     @XmlAttribute
-    private Boolean primary;
+    private Boolean primary = false;
     /**
      * Subelements of <pod> that contain the results for a single subpod. <subpod> has a title attribute, which is
      * usually an empty string because most subpods have no title

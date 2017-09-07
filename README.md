@@ -62,6 +62,7 @@ Supported features:<br/>
     * Pods/Subpods with attributes
     * Assumptions
     * Cells
+    * Location selection
     
     
 [travis]:https://travis-ci.org/nginate/wolframalpha-client

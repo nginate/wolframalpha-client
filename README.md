@@ -64,6 +64,8 @@ Supported features:<br/>
     * Cells
     * Location selection
     
+#### Credits
+https://github.com/aaronsw/html2text - nice workaround for TravisCI to see test report
     
 [travis]:https://travis-ci.org/nginate/wolframalpha-client
 [travis img]:https://travis-ci.org/nginate/wolframalpha-client.svg?branch=master

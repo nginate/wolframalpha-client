@@ -65,4 +65,12 @@ public class Pod {
      */
     @XmlElement
     private Sounds sounds;
+    /**
+     * The 'states' element contains all the alternative states available for that pod. The name of each state is the
+     * same as the text that appears on the Wolfram|Alpha website. You can perform the "pi" query and ask that the "More
+     * digits" state be invoked automatically by using the podstate parameter, passing the value of the input attribute
+     * from the corresponding 'state' element
+     */
+    @XmlElement
+    private States states;
 }

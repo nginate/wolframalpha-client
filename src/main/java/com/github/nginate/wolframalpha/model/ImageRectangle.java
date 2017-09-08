@@ -23,9 +23,11 @@ public class ImageRectangle {
     @XmlAttribute
     private Integer bottom;
     @XmlAttribute
-    private String query;
+    private String query = "";
     @XmlAttribute
-    private String assumptions;
+    private String assumptions = "";
     @XmlAttribute
-    private String title;
+    private String assumptions2 = "";
+    @XmlAttribute
+    private String title = "";
 }

@@ -13,6 +13,8 @@ import java.util.stream.Collectors;
 
 import static com.github.nginate.wolframalpha.model.ResultFormat.*;
 import static java.lang.Boolean.TRUE;
+import static java.util.Objects.nonNull;
+import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class FullResultsApiIT {
@@ -79,7 +81,7 @@ public class FullResultsApiIT {
                 .map(Subpod::getImageMap)
                 .filter(Objects::nonNull)
                 .flatMap(imageMap -> imageMap.getRectangles().stream())
-                .collect(Collectors.toList());
+                .collect(toList());
 
         assertThat(rectangles).isEmpty();
     }
@@ -92,9 +94,10 @@ public class FullResultsApiIT {
                 .map(Subpod::getImageMap)
                 .filter(Objects::nonNull)
                 .flatMap(imageMap -> imageMap.getRectangles().stream())
-                .collect(Collectors.toList());
+                .collect(toList());
 
         assertThat(rectangles).isNotEmpty();
+        rectangles.forEach(imageRectangle -> assertThat(imageRectangle).hasNoNullFieldsOrProperties());
     }
 
     @Test
@@ -104,7 +107,7 @@ public class FullResultsApiIT {
                 .flatMap(pod -> pod.getSubpods().stream())
                 .map(Subpod::getMathMl)
                 .filter(Objects::nonNull)
-                .collect(Collectors.toList());
+                .collect(toList());
         assertThat(mathMls).isNotEmpty();
     }
 
@@ -113,7 +116,7 @@ public class FullResultsApiIT {
         QueryResult result = fullResultsApi.getFullResults("C major", token, SOUND);
         List<Sounds> sounds = result.getPods().stream()
                 .map(Pod::getSounds)
-                .collect(Collectors.toList());
+                .collect(toList());
 
         assertThat(sounds).isNotEmpty();
 
@@ -135,7 +138,7 @@ public class FullResultsApiIT {
                 .flatMap(pod -> pod.getSubpods().stream())
                 .map(Subpod::getMinput)
                 .filter(Objects::nonNull)
-                .collect(Collectors.toList());
+                .collect(toList());
         assertThat(minputs).isNotEmpty();
     }
 
@@ -147,7 +150,7 @@ public class FullResultsApiIT {
                 .flatMap(pod -> pod.getSubpods().stream())
                 .map(Subpod::getMoutput)
                 .filter(Objects::nonNull)
-                .collect(Collectors.toList());
+                .collect(toList());
         assertThat(moutputs).isNotEmpty();
     }
 
@@ -159,9 +162,34 @@ public class FullResultsApiIT {
                 .flatMap(pod -> pod.getSubpods().stream())
                 .map(Subpod::getCell)
                 .filter(Objects::nonNull)
-                .collect(Collectors.toList());
+                .collect(toList());
         assertThat(cells).isNotEmpty();
 
         cells.forEach(cell -> assertThat(cell).hasNoNullFieldsOrProperties());
+    }
+
+    @Test
+    public void podStatesNotEmpty() throws Exception {
+        QueryResult result = fullResultsApi.getFullResults("weather", token);
+        List<States> statesList = result.getPods().stream()
+                .map(Pod::getStates)
+                .filter(Objects::nonNull)
+                .collect(toList());
+
+        assertThat(statesList).isNotEmpty();
+
+        for (States states : statesList) {
+            assertThat(states.getStates()).isNotNull()
+                    .hasSize(nonNull(states.getStateList()) ? states.getCount() - 1 : states.getCount());
+            List<States.StateList> innerLists = statesList.stream()
+                    .map(States::getStateList)
+                    .filter(Objects::nonNull)
+                    .collect(toList());
+            for (States.StateList innerList : innerLists) {
+                assertThat(innerList).hasNoNullFieldsOrProperties();
+                assertThat(innerList.getStates()).hasSize(innerList.getCount());
+                innerList.getStates().forEach(state -> assertThat(state).hasNoNullFieldsOrProperties());
+            }
+        }
     }
 }

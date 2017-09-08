@@ -1,7 +1,9 @@
 package com.github.nginate.wolframalpha;
 
+import com.github.nginate.wolframalpha.comparator.QueryResultTestComparator;
 import com.github.nginate.wolframalpha.full.FullResultsApi;
 import com.github.nginate.wolframalpha.model.*;
+import com.github.nginate.wolframalpha.model.States.State;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,7 +11,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Properties;
-import java.util.stream.Collectors;
 
 import static com.github.nginate.wolframalpha.model.ResultFormat.*;
 import static java.lang.Boolean.TRUE;
@@ -191,5 +192,43 @@ public class FullResultsApiIT {
                 innerList.getStates().forEach(state -> assertThat(state).hasNoNullFieldsOrProperties());
             }
         }
+    }
+
+    @Test
+    public void applyRootState() throws Exception {
+        String query = "weather";
+
+        QueryResult result = fullResultsApi.getFullResults(query, token);
+        Optional<String> input = result.getPods().stream()
+                .map(Pod::getStates)
+                .filter(Objects::nonNull)
+                .flatMap(states -> states.getStates().stream())
+                .filter(Objects::nonNull)
+                .map(State::getInput)
+                .findAny();
+
+        assertThat(input).isPresent();
+        QueryResult podStateResult = fullResultsApi.getFullResultsForPodStates(query, token, input.get());
+        assertThat(podStateResult).usingComparator(new QueryResultTestComparator()).isNotEqualTo(result);
+    }
+
+    @Test
+    public void applyInnerListState() throws Exception {
+        String query = "weather";
+
+        QueryResult result = fullResultsApi.getFullResults(query, token);
+        Optional<String> input = result.getPods().stream()
+                .map(Pod::getStates)
+                .filter(Objects::nonNull)
+                .map(States::getStateList)
+                .filter(Objects::nonNull)
+                .flatMap(list -> list.getStates().stream())
+                .filter(Objects::nonNull)
+                .map(State::getInput)
+                .findAny();
+
+        assertThat(input).isPresent();
+        QueryResult podStateResult = fullResultsApi.getFullResultsForPodStates(query, token, input.get());
+        assertThat(podStateResult).usingComparator(new QueryResultTestComparator()).isNotEqualTo(result);
     }
 }

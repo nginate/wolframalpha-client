@@ -45,26 +45,21 @@ public class TestComparators {
             }
 
             Iterator<T> o1Iterator = o1.iterator();
-            Iterator<T> o2Iterator = o2.iterator();
-
-            while (o1Iterator.hasNext() && o2Iterator.hasNext()) {
+            while (o1Iterator.hasNext()) {
                 T o1Current = o1Iterator.next();
-                T o2Current = o2Iterator.next();
+                o1Iterator.remove();
 
-                //noinspection unchecked
-                try {
-                    int result = comparator.compare(o1Current, o2Current);
-                    if (result != 0) {
-                        log.debug("Non equal objects : {}, {}", o1Current, o2Current);
-                        return result;
-                    }
-                } catch (NullPointerException e) {
-                    log.error("Nested comparator failed", e);
-                    throw e;
-                }
+                o2.stream()
+                        .filter(o2Current -> comparator.compare(o1Current, o2Current) == 0)
+                        .findAny()
+                        .ifPresent(o2::remove);
             }
 
-            return 0;
+            if (o2.isEmpty()) {
+                return 0;
+            }
+
+            return -1;
         };
     }
 
@@ -77,7 +72,8 @@ public class TestComparators {
                 .thenComparing(Pod::getNumsubpods)
                 .thenComparing(Pod::getPrimary)
                 .thenComparing(Pod::getSubpods, collectionComparator(subpodComparator()))
-                .thenComparing(Pod::getSounds, nullsFirst(soundsComparator()));
+                .thenComparing(Pod::getSounds, nullsFirst(soundsComparator()))
+                .thenComparing(Pod::getStates, nullsFirst(statesComparator()));
     }
 
     public static Comparator<Subpod> subpodComparator() {
@@ -99,6 +95,24 @@ public class TestComparators {
     public static Comparator<Sounds.Sound> soundComparator() {
         return Comparator.comparing(Sounds.Sound::getType)
                 .thenComparing(Sounds.Sound::getUrl);
+    }
+
+    public static Comparator<States> statesComparator() {
+        return Comparator.comparing(States::getCount)
+                .thenComparing(States::getStates, nullsFirst(collectionComparator(stateComparator())))
+                .thenComparing(States::getStateList, nullsFirst(stateListComparator()));
+    }
+
+    public static Comparator<States.StateList> stateListComparator() {
+        return Comparator.comparing(States.StateList::getCount)
+                .thenComparing(States.StateList::getStates, nullsFirst(collectionComparator(stateComparator())))
+                .thenComparing(States.StateList::getDelimiters)
+                .thenComparing(States.StateList::getValue);
+    }
+
+    public static Comparator<States.State> stateComparator() {
+        return Comparator.comparing(States.State::getName)
+                .thenComparing(States.State::getInput);
     }
 
     public static Comparator<ElementImpl> mathMlComparator() {

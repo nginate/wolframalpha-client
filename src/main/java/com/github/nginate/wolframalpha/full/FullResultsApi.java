@@ -1,9 +1,9 @@
 package com.github.nginate.wolframalpha.full;
 
-import com.github.nginate.wolframalpha.model.GeoCoordinates;
 import com.github.nginate.wolframalpha.feign.GeoCoordsExpander;
 import com.github.nginate.wolframalpha.model.QueryResult;
 import com.github.nginate.wolframalpha.model.ResultFormat;
+import com.github.nginate.wolframalpha.model.params.GeoCoordinates;
 import feign.Param;
 import feign.RequestLine;
 
@@ -35,7 +35,11 @@ public interface FullResultsApi {
     }
 
     default QueryResult getFullResultsForAssumptions(String input, String appId, String... assumptions) {
-        return getFullResults(input, appId, null, Arrays.asList(assumptions), null, null, null);
+        return getFullResults(input, appId, null, Arrays.asList(assumptions), null, null, null, null);
+    }
+
+    default QueryResult getFullResultsForPodStates(String input, String appId, String... states) {
+        return getFullResults(input, appId, null, null, null, null, null, Arrays.asList(states));
     }
 
     default QueryResult getFullResults(String input, String appId, List<ResultFormat> formats) {
@@ -43,24 +47,20 @@ public interface FullResultsApi {
                 .map(Enum::toString).map(String::toLowerCase)
                 .reduce((s1, s2) -> format("%s,%s", s1, s2))
                 .orElse(null);
-        return getFullResults(input, appId, serializedFormats, Collections.emptyList(), null, null, null);
+        return getFullResults(input, appId, serializedFormats, Collections.emptyList(), null, null, null, null);
     }
 
     default QueryResult getFullResults(String input, String appId, String location) {
-        return getFullResults(input, appId, null, Collections.emptyList(), location, null, null);
-    }
-
-    default QueryResult getFullResults(String input, String appId, GeoCoordinates location) {
-        return getFullResults(input, appId, null, Collections.emptyList(), null, location, null);
+        return getFullResults(input, appId, null, Collections.emptyList(), location, null, null, null);
     }
 
     default QueryResult getFullResults(String input, String appId, double latitude, double longitude) {
         return getFullResults(input, appId, null, Collections.emptyList(), null,
-                new GeoCoordinates(latitude, longitude), null);
+                new GeoCoordinates(latitude, longitude), null, null);
     }
 
     default QueryResult getFullResultsForIP(String input, String appId, String ip) {
-        return getFullResults(input, appId, null, Collections.emptyList(), null, null, ip);
+        return getFullResults(input, appId, null, Collections.emptyList(), null, null, ip, null);
     }
 
     /**
@@ -84,11 +84,19 @@ public interface FullResultsApi {
      *                    IP address for location. ("40.42,-3.71", "40.11, -88.24", "0,0")
      * @param ip          Specifies a custom query location based on an IP address. Only one location parameter may be
      *                    used at a time. IPv4 and IPv6 addresses are supported.
+     * @param podStates   Changing the current state of a pod may also invoke more possible states—in this case, a
+     *                    "Fewer digits" state is now available, along with an extended "More digits" state. State
+     *                    changes can be chained together to simulate any sequence of button clicks. You can simulate
+     *                    clicking the "More digits" button twice as follows:
+     *                    <p>
+     *                    <code> http://api.wolframalpha
+     *                    .com/v2/query?appid=DEMO&input=pi&podstate=DecimalApproximation__More
+     *                    +digits&podstate =DecimalApproximation__More+digits <code/>
      * @return query result
      * @see QueryResult
      */
     @RequestLine("GET /v2/query?input={input}&appid={appid}&format={format}&assumption={assumption}" +
-            "&location={location}&latlong={latlong}&ip={ip}")
+            "&location={location}&latlong={latlong}&ip={ip}&podstate={podstate}")
     QueryResult getFullResults(@Param("input") String input,
                                @Param("appid") String appId,
                                @Param("format") String format,
@@ -96,5 +104,6 @@ public interface FullResultsApi {
                                @Param("location") String location,
                                @Param(value = "latlong", expander = GeoCoordsExpander.class, encoded = true)
                                        GeoCoordinates latlong,
-                               @Param("ip") String ip);
+                               @Param("ip") String ip,
+                               @Param(value = "podstate") List<String> podStates);
 }

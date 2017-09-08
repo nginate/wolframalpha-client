@@ -1,7 +1,6 @@
 package com.github.nginate.wolframalpha;
 
 import com.github.nginate.wolframalpha.full.FullResultsApi;
-import com.github.nginate.wolframalpha.model.GeoCoordinates;
 import com.github.nginate.wolframalpha.model.Pod;
 import com.github.nginate.wolframalpha.model.QueryResult;
 import com.github.nginate.wolframalpha.model.Subpod;
@@ -54,8 +53,8 @@ public class FullResultsLocationIT {
     public void testUTCTimeByCoordinates() throws Exception {
         String request = "current time";
 
-        QueryResult utcResult = fullResultsApi.getFullResults(request, token, new GeoCoordinates(-15.945996, -5.687040));
-        QueryResult utcOppositeResult = fullResultsApi.getFullResults(request, token, new GeoCoordinates(-41.292973, 174.764016));
+        QueryResult utcResult = fullResultsApi.getFullResults(request, token, -15.945996, -5.687040);
+        QueryResult utcOppositeResult = fullResultsApi.getFullResults(request, token, -41.292973, 174.764016);
 
         verifyTimeShiftAccordingToLocation(utcResult, utcOppositeResult);
     }

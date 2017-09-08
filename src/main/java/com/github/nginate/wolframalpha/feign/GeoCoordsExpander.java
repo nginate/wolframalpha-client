@@ -1,6 +1,6 @@
 package com.github.nginate.wolframalpha.feign;
 
-import com.github.nginate.wolframalpha.model.GeoCoordinates;
+import com.github.nginate.wolframalpha.model.params.GeoCoordinates;
 import feign.Param;
 
 import java.util.Locale;

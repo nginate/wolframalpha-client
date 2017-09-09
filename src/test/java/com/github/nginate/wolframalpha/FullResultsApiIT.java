@@ -177,21 +177,7 @@ public class FullResultsApiIT {
                 .filter(Objects::nonNull)
                 .collect(toList());
 
-        assertThat(statesList).isNotEmpty();
-
-        for (States states : statesList) {
-            assertThat(states.getStates()).isNotNull()
-                    .hasSize(nonNull(states.getStateList()) ? states.getCount() - 1 : states.getCount());
-            List<States.StateList> innerLists = statesList.stream()
-                    .map(States::getStateList)
-                    .filter(Objects::nonNull)
-                    .collect(toList());
-            for (States.StateList innerList : innerLists) {
-                assertThat(innerList).hasNoNullFieldsOrProperties();
-                assertThat(innerList.getStates()).hasSize(innerList.getCount());
-                innerList.getStates().forEach(state -> assertThat(state).hasNoNullFieldsOrProperties());
-            }
-        }
+        verifyStates(statesList);
     }
 
     @Test
@@ -230,5 +216,72 @@ public class FullResultsApiIT {
         assertThat(input).isPresent();
         QueryResult podStateResult = fullResultsApi.getFullResultsForPodStates(query, token, input.get());
         assertThat(podStateResult).usingComparator(new QueryResultTestComparator()).isNotEqualTo(result);
+    }
+
+    @Test
+    public void subpodStatesNotEmpty() throws Exception {
+        QueryResult result = fullResultsApi.getFullResults("inductance of a circular coil", token);
+        List<States> statesList = result.getPods().stream()
+                .flatMap(pod -> pod.getSubpods().stream())
+                .map(Subpod::getStates)
+                .filter(Objects::nonNull)
+                .collect(toList());
+        verifyStates(statesList);
+    }
+
+    @Test
+    public void applyRootSubpodState() throws Exception {
+        String query = "inductance of a circular coil";
+
+        QueryResult result = fullResultsApi.getFullResults(query, token);
+        Optional<String> input = result.getPods().stream()
+                .flatMap(pod -> pod.getSubpods().stream())
+                .map(Subpod::getStates)
+                .filter(Objects::nonNull)
+                .flatMap(states -> states.getStates().stream())
+                .filter(Objects::nonNull)
+                .map(State::getInput)
+                .findAny();
+
+        assertThat(input).isPresent();
+        QueryResult podStateResult = fullResultsApi.getFullResultsForPodStates(query, token, input.get());
+        assertThat(podStateResult).usingComparator(new QueryResultTestComparator()).isNotEqualTo(result);
+    }
+
+    @Test
+    public void emptyInnerListSubpodState() throws Exception {
+        String query = "inductance of a circular coil";
+
+        QueryResult result = fullResultsApi.getFullResults(query, token);
+        Optional<String> input = result.getPods().stream()
+                .flatMap(pod -> pod.getSubpods().stream())
+                .map(Subpod::getStates)
+                .filter(Objects::nonNull)
+                .map(States::getStateList)
+                .filter(Objects::nonNull)
+                .flatMap(list -> list.getStates().stream())
+                .filter(Objects::nonNull)
+                .map(State::getInput)
+                .findAny();
+
+        assertThat(input).isEmpty();
+    }
+
+    private void verifyStates(List<States> statesList) {
+        assertThat(statesList).isNotEmpty();
+
+        for (States states : statesList) {
+            assertThat(states.getStates()).isNotNull()
+                    .hasSize(nonNull(states.getStateList()) ? states.getCount() - 1 : states.getCount());
+            List<States.StateList> innerLists = statesList.stream()
+                    .map(States::getStateList)
+                    .filter(Objects::nonNull)
+                    .collect(toList());
+            for (States.StateList innerList : innerLists) {
+                assertThat(innerList).hasNoNullFieldsOrProperties();
+                assertThat(innerList.getStates()).hasSize(innerList.getCount());
+                innerList.getStates().forEach(state -> assertThat(state).hasNoNullFieldsOrProperties());
+            }
+        }
     }
 }

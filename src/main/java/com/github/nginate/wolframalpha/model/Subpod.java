@@ -3,7 +3,6 @@ package com.github.nginate.wolframalpha.model;
 import com.sun.org.apache.xerces.internal.dom.ElementNSImpl;
 import lombok.Data;
 
-import javax.xml.bind.Element;
 import javax.xml.bind.annotation.*;
 
 @Data
@@ -55,4 +54,12 @@ public class Subpod {
      */
     @XmlElement
     private Cell cell;
+    /**
+     * Most podstate changes are for entire pods, but a few Wolfram|Alpha queries have podstate changes at the subpod
+     * level. An example of one such query is "inductance of a circular coil". On the website, the third pod is titled
+     * "Self-inductance of a single-layer circular coil of small radius", and it has two subpods. The second one is
+     * called "Result", and it has a podstate button called "Show formula"
+     */
+    @XmlElement
+    private States states;
 }

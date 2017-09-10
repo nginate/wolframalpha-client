@@ -1,6 +1,6 @@
 package com.github.nginate.wolframalpha.model;
 
-import com.github.nginate.wolframalpha.model.adapter.CDATAAdapter;
+import com.github.nginate.wolframalpha.feign.adapter.CDATAAdapter;
 import lombok.Data;
 
 import javax.xml.bind.annotation.*;

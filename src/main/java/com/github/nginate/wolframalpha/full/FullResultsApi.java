@@ -1,16 +1,26 @@
 package com.github.nginate.wolframalpha.full;
 
+import com.github.nginate.wolframalpha.feign.AsyncExpander;
 import com.github.nginate.wolframalpha.feign.GeoCoordsExpander;
+import com.github.nginate.wolframalpha.feign.client.NoNSIRetriableClient;
+import com.github.nginate.wolframalpha.model.Pod;
 import com.github.nginate.wolframalpha.model.QueryResult;
 import com.github.nginate.wolframalpha.model.ResultFormat;
 import com.github.nginate.wolframalpha.model.params.GeoCoordinates;
+import feign.Feign;
+import feign.Logger;
 import feign.Param;
 import feign.RequestLine;
+import feign.jaxb.JAXBDecoder;
+import feign.slf4j.Slf4jLogger;
+import lombok.SneakyThrows;
 
+import java.net.URL;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static com.github.nginate.wolframalpha.util.SerializationUtil.buildJAXBFactory;
 import static java.lang.String.format;
 
 /**
@@ -30,37 +40,54 @@ import static java.lang.String.format;
  */
 public interface FullResultsApi {
 
+    @SneakyThrows
+    default Pod loadPodAsync(String asyncPodUri) {
+        URL url = new URL(asyncPodUri);
+
+        return Feign.builder()
+                .decoder(new JAXBDecoder(buildJAXBFactory()))
+                .logLevel(Logger.Level.FULL)
+                .logger(new Slf4jLogger())
+//                .client(new NoNSIRetriableClient(null, null))
+                .target(AsyncPodApi.class, format("%s://%s", url.getProtocol(), url.getHost()))
+                .getAsyncPod(url.getQuery().substring(3));
+    }
+
     default QueryResult getFullResults(String input, String appId, ResultFormat... formats) {
-        return getFullResults(input, appId, Arrays.asList(formats));
+        return getFullResults(input, appId, null, Arrays.asList(formats));
+    }
+
+    default QueryResult getFullResults(String input, String appId, Double async, ResultFormat... formats) {
+        return getFullResults(input, appId, async, Arrays.asList(formats));
     }
 
     default QueryResult getFullResultsForAssumptions(String input, String appId, String... assumptions) {
-        return getFullResults(input, appId, null, Arrays.asList(assumptions), null, null, null, null);
+        return getFullResults(input, appId, null, Arrays.asList(assumptions), null, null, null, null, null);
     }
 
     default QueryResult getFullResultsForPodStates(String input, String appId, String... states) {
-        return getFullResults(input, appId, null, null, null, null, null, Arrays.asList(states));
+        return getFullResults(input, appId, null, null, null, null, null, Arrays.asList(states), null);
     }
 
-    default QueryResult getFullResults(String input, String appId, List<ResultFormat> formats) {
+    default QueryResult getFullResults(String input, String appId, Double async, List<ResultFormat> formats) {
         String serializedFormats = formats.stream()
                 .map(Enum::toString).map(String::toLowerCase)
                 .reduce((s1, s2) -> format("%s,%s", s1, s2))
                 .orElse(null);
-        return getFullResults(input, appId, serializedFormats, Collections.emptyList(), null, null, null, null);
+        return getFullResults(input, appId, serializedFormats, Collections.emptyList(), null, null, null, null, async);
     }
 
     default QueryResult getFullResults(String input, String appId, String location) {
-        return getFullResults(input, appId, null, Collections.emptyList(), location, null, null, null);
+        return getFullResults(input, appId, null, Collections.emptyList(), location, null, null, null, null);
     }
 
     default QueryResult getFullResults(String input, String appId, double latitude, double longitude) {
         return getFullResults(input, appId, null, Collections.emptyList(), null,
-                new GeoCoordinates(latitude, longitude), null, null);
+                new GeoCoordinates(latitude, longitude), null, null, null);
     }
 
     default QueryResult getFullResultsForIP(String input, String appId, String ip) {
-        return getFullResults(input, appId, null, Collections.emptyList(), null, null, ip, null);
+        return getFullResults(input, appId, null, Collections.emptyList(), null, null, ip, null, null);
     }
 
     /**
@@ -92,11 +119,32 @@ public interface FullResultsApi {
      *                    <code> http://api.wolframalpha
      *                    .com/v2/query?appid=DEMO&input=pi&podstate=DecimalApproximation__More
      *                    +digits&podstate =DecimalApproximation__More+digits <code/>
+     * @param async       Seconds to wait for result from API. Timedout pod would be retrieved as links for async
+     *                    loading
+     *                    <p>
+     *                    The Wolfram|Alpha website is designed to allow some pods to appear in the user's browser
+     *                    before all the pods are ready. For many queries ("weather" is a typical example), you will see
+     *                    one to several pods appear quickly, but pods lower down on the screen show up as progress bars
+     *                    that have their content spliced in when it becomes available. The Wolfram|Alpha server stores
+     *                    certain pod expressions as files before they are formatted, and then waits for the client (a
+     *                    web browser, because here we are describing the behavior of the website) to request the
+     *                    formatted versions, at which point the formatting stage of the computation is performed and
+     *                    the result for each pod is returned as a separate transaction. You can get the same behavior
+     *                    in the API using the async parameter.
+     *                    <p>
+     *                    By default, the API behaves synchronously, meaning that the entire XML document that
+     *                    represents the result of a query is returned as a single unit. The caller gets nothing back
+     *                    until the entire result is ready. By specifying async=true, you can tell Wolfram|Alpha to
+     *                    return an XML document in which some pods are represented as URLs that need to be requested in
+     *                    a second step to get their actual XML content. Do not confuse this with image URLs that are
+     *                    part of a normal result when the image format type is requested. Although the actual data in
+     *                    the images must be requested as a second step, the images themselves are already completely
+     *                    generated by the time the original XML result is returned.
      * @return query result
      * @see QueryResult
      */
     @RequestLine("GET /v2/query?input={input}&appid={appid}&format={format}&assumption={assumption}" +
-            "&location={location}&latlong={latlong}&ip={ip}&podstate={podstate}")
+            "&location={location}&latlong={latlong}&ip={ip}&podstate={podstate}&async={async}")
     QueryResult getFullResults(@Param("input") String input,
                                @Param("appid") String appId,
                                @Param("format") String format,
@@ -105,5 +153,15 @@ public interface FullResultsApi {
                                @Param(value = "latlong", expander = GeoCoordsExpander.class, encoded = true)
                                        GeoCoordinates latlong,
                                @Param("ip") String ip,
-                               @Param(value = "podstate") List<String> podStates);
+                               @Param(value = "podstate") List<String> podStates,
+                               @Param(value = "async", expander = AsyncExpander.class) Double async);
+
+
+    /**
+     * Helper API to wrap dynamic pod retrieval by parsing async url and building special client per each unique URL
+     */
+    interface AsyncPodApi {
+        @RequestLine("GET /api/v2/asyncPod.jsp?id={id}")
+        Pod getAsyncPod(@Param(value = "id", encoded = true) String id);
+    }
 }

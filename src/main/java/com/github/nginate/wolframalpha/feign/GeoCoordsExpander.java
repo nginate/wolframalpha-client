@@ -15,6 +15,6 @@ public class GeoCoordsExpander implements Param.Expander {
             return null;
         }
         GeoCoordinates coordinates = GeoCoordinates.class.cast(value);
-        return format(Locale.US, "%.8f,%.8f", coordinates.getLatitude(), coordinates.getLongitude());
+        return format(Locale.US, "%f,%f", coordinates.getLatitude(), coordinates.getLongitude());
     }
 }

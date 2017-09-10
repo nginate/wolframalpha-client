@@ -11,6 +11,7 @@ import java.util.List;
  */
 @Data
 @XmlType(name = "pod")
+@XmlRootElement(name = "pod")
 @XmlAccessorType(XmlAccessType.NONE)
 public class Pod {
     /**
@@ -55,7 +56,7 @@ public class Pod {
     @XmlAttribute
     private Boolean primary = false;
     /**
-     * Subelements of <pod> that contain the results for a single subpod. <subpod> has a title attribute, which is
+     * Subelements of 'pod' that contain the results for a single subpod. 'subpod' has a title attribute, which is
      * usually an empty string because most subpods have no title
      */
     @XmlElement(name = "subpod")
@@ -73,4 +74,12 @@ public class Pod {
      */
     @XmlElement
     private States states;
+    /**
+     * elements have an async attribute that gives a URL that you can use to request the XML content that corresponds to
+     * the pod, with all the originally requested properties intact (format types, width, etc.) The XML that gets
+     * returned from a request to this URL is a 'pod' element and subelements that directly replace the "stub" 'pod'
+     * element
+     */
+    @XmlAttribute
+    private String async;
 }

@@ -5,6 +5,11 @@ Java client for wolframalpha API
 
 [![][travis img]][travis] [![][codecovbadge img]][codecovbadge]
 
+### Known issues
+Saw incorrect SSL configuration of some wolfram servers during testing causing async pod download to fail with SSL 
+handshake exception. Seems to be fixed now, but if it would appear again - would need to implement workaround as it
+is described in [related issues](https://github.com/lightbody/browsermob-proxy/issues/117)
+
 ### Overview
 This library provides base RESTful binding to a WolframAlpha API 
 to all endpoints that have API documentation at this moment.
@@ -64,6 +69,7 @@ Supported features:<br/>
     * Cells
     * Location selection
     * Pod states
+    * Async requests
     
 #### Credits
 https://github.com/aaronsw/html2text - nice workaround for TravisCI to see test report

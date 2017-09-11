@@ -41,7 +41,7 @@ public class FullResultsAsyncIT {
 
     @Test
     public void retrieveAsyncPod() throws Exception {
-        QueryResult result = fullResultsApi.getFullResults("france", token, .1);
+        QueryResult result = fullResultsApi.getFullResults("ukraine", token, .1);
         for (Pod pod : getAsyncPods(result)) {
             String async = pod.getAsync();
             assertThat(async).isNotEmpty();

@@ -2,6 +2,7 @@ package com.github.nginate.wolframalpha.full;
 
 import com.github.nginate.wolframalpha.feign.AsyncExpander;
 import com.github.nginate.wolframalpha.feign.GeoCoordsExpander;
+import com.github.nginate.wolframalpha.feign.client.NoSNIRetryableClient;
 import com.github.nginate.wolframalpha.model.Pod;
 import com.github.nginate.wolframalpha.model.QueryResult;
 import com.github.nginate.wolframalpha.model.ResultFormat;
@@ -47,6 +48,7 @@ public interface FullResultsApi {
                 .decoder(new JAXBDecoder(buildJAXBFactory()))
                 .logLevel(Logger.Level.FULL)
                 .logger(new Slf4jLogger())
+                .client(NoSNIRetryableClient.INSTANCE)
                 .target(AsyncPodApi.class, format("%s://%s", url.getProtocol(), url.getHost()))
                 .getAsyncPod(url.getQuery().substring(3));
     }

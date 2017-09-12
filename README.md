@@ -3,7 +3,7 @@ Java client for wolframalpha API
 
 #### Build status
 
-[![][travis img]][travis] [![][codecovbadge img]][codecovbadge]
+[![][travis img]][travis] [![][codecovbadge img]][codecovbadge] [![][dependencies img]][dependencies]
 
 ### Known issues
 Saw incorrect SSL configuration of some wolfram servers during testing causing async pod download to fail with SSL 
@@ -79,3 +79,6 @@ https://github.com/aaronsw/html2text - nice workaround for TravisCI to see test 
 
 [codecovbadge]:https://codecov.io/gh/nginate/wolframalpha-client
 [codecovbadge img]:https://codecov.io/gh/nginate/wolframalpha-client/branch/master/graph/badge.svg
+
+[dependencies]:https://www.versioneye.com/user/projects/59b850876725bd004a5e5921
+[dependencies img]:https://www.versioneye.com/user/projects/59b850876725bd004a5e5921/badge.svg?style=flat

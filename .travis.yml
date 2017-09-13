@@ -1,27 +1,12 @@
 language: java
 jdk:
   - oraclejdk8
-env:
-  global:
-   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
-   #   via the "travis encrypt" command using the project repo's public key
-   - secure: "4NKxnuSg35p/RUVAIIT6i6epXFK/QnBee+P/nGqVef01zvmRJlVGNnWblrNgyPY9/ypq4etPg9BQV0fkTkO1a+t26g/Qvt6XrPqJfIHRNrjwtW05Wtx6ICM6tbCVgEdvhqPUAe5SMM7CWfPtGsQxzpOJWYyGL1+sVIMCFU79+PzxLQcFE79CJ2VoRQRNrsLBtvO/QgOpaDLC2YKc4vLJoebsdGzA7P9mjNxwmXQ/OsuP8dcUqqn3HD6Vr//oHfr4X/EhRmBVm0AD9D9KCZdYLRwj4aBh/7UcSnbKZh5naKVJPwg1FufQtk/pzllC2X3IoSPLvrI7c7s+B3w0StUkHzE9zwbwftj5OPwM/VQrobm+OUKOD/AhndYVr05gPSiCDzpBU0iTJ/ylSGfHPSQAZ3eFo1CAvJXVOn+gdhwe6VLw7g0uqq5dZ9/9XALt4SHhbuszncrEWUPkC3o6X2Kdb8ajgJu/BPqNahsj2PGHLK6JyNQ55UW4jn/2Lh6n0mM+sU1C/bWosnKiQwalf+iqua7Q1U0pc2y9DfN0NMzILhGFLiKZbjX68cCP+QC9jYyMfRhmWZ1c3vvRhW5IiBM31b9qQqqtSHB9gZ8K5eegA7oFI22ChEP5+yCeQXjDql1cCRN6wjGVpCg/G9jjhtwN8pSueGLFjYbCcpou13M/raI="
 
 before_install:
   - chmod +x gradlew
-  - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
 
-addons:
-  coverity_scan:
-    project:
-      name: "nginate/wolframalpha-client"
-      description: "Build submitted via Travis CI"
-    notification_email: legioner.alexei@gmail.com
-    build_command_prepend: "./gradlew clean"
-    build_command:   "./gradlew compile"
-    branch_pattern: master
-
-script: ./gradlew check jacocoTestReport
+script: ./gradlew check jacocoTestReport sonarqube -Dsonar.organization=nginate \
+-Dsonar.host.url=https://sonarcloud.io -Dsonar.login=f162ff8d718774fcb434fe599f40987f3e82fdbc
 after_script:
 - python html2text.py build/reports/tests/test/index.html
 before_cache:

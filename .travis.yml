@@ -5,8 +5,7 @@ jdk:
 before_install:
   - chmod +x gradlew
 
-script: ./gradlew check jacocoTestReport sonarqube -Dsonar.organization=nginate \
--Dsonar.host.url=https://sonarcloud.io -Dsonar.login=f162ff8d718774fcb434fe599f40987f3e82fdbc
+script: ./gradlew check jacocoTestReport sonarqube -Dsonar.organization=nginate -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=f162ff8d718774fcb434fe599f40987f3e82fdbc
 after_script:
 - python html2text.py build/reports/tests/test/index.html
 before_cache:

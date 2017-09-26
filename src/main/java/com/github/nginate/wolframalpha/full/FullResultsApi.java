@@ -2,7 +2,6 @@ package com.github.nginate.wolframalpha.full;
 
 import com.github.nginate.wolframalpha.feign.AsyncExpander;
 import com.github.nginate.wolframalpha.feign.GeoCoordsExpander;
-import com.github.nginate.wolframalpha.feign.client.NoSNIRetryableClient;
 import com.github.nginate.wolframalpha.model.Pod;
 import com.github.nginate.wolframalpha.model.QueryResult;
 import com.github.nginate.wolframalpha.model.ResultFormat;
@@ -40,7 +39,18 @@ import static java.lang.String.format;
  */
 public interface FullResultsApi {
 
+    /**
+     * API is broken at the time of implementation. Filled a bug but no progress for now. YOu can find details <a
+     * href="https://gist.github.com/Kindrat/6af59c6dc3f9ee6bae43a79bc1865e44">here</a>
+     * <p>
+     * If you really need to use this feature, please, implement some retry mechanism but be aware that it can still be
+     * indefinitely reusing same broken Wolfram server.
+     *
+     * @param asyncPodUri URL for async resource loading
+     * @return single POD, loaded by provided url
+     */
     @SneakyThrows
+    @Deprecated
     default Pod loadPodAsync(String asyncPodUri) {
         URL url = new URL(asyncPodUri);
 
@@ -48,7 +58,6 @@ public interface FullResultsApi {
                 .decoder(new JAXBDecoder(buildJAXBFactory()))
                 .logLevel(Logger.Level.FULL)
                 .logger(new Slf4jLogger())
-                .client(NoSNIRetryableClient.INSTANCE)
                 .target(AsyncPodApi.class, format("%s://%s", url.getProtocol(), url.getHost()))
                 .getAsyncPod(url.getQuery().substring(3));
     }

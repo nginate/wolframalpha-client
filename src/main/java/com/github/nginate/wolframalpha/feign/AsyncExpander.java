@@ -8,9 +8,9 @@ public class AsyncExpander implements Param.Expander {
         if (value == null) {
             return null;
         }
-        Double seconds = Double.class.cast(value);
+        Float seconds = Float.class.cast(value);
         if (seconds > 0) {
-            return Double.toString(seconds);
+            return Float.toString(seconds);
         } else {
             return Boolean.FALSE.toString();
         }

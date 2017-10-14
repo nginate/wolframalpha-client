@@ -267,6 +267,15 @@ public class FullResultsApiIT {
         assertThat(input).isEmpty();
     }
 
+    @Test
+    public void nonEmptyRecalculateResponse() throws Exception {
+        QueryResult result = fullResultsApi.getFullResults("How many minutes are there in an hour", token,
+                PLAINTEXT);
+
+        assertThat(result).isNotNull();
+        assertThat(result).hasNoNullFieldsOrPropertiesExcept("assumptions");
+    }
+
     private void verifyStates(List<States> statesList) {
         assertThat(statesList).isNotEmpty();
 

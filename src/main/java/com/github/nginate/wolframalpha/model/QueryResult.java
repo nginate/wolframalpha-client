@@ -65,7 +65,14 @@ public class QueryResult {
     @XmlAttribute
     private Boolean parsetimedout;
     /**
-     * A URL to use to recalculate the query and get more pods.
+     * Multiple scanners are at work to produce pods relating to various topics. Any scanner that does not finish within
+     * the scantimeout period is interrupted before it produces a pod. If this happens, the 'queryresult' element will
+     * name the scanners that timed out in its timedout attribute, and the recalculate attribute will have a non-empty
+     * value giving a URL. You can call this URL to redo the query with a longer scantimeout to give the scanners that
+     * timed out a chance to finish and give you some new pods. The advantage of using the recalculate URL instead of
+     * simply redoing the original query yourself and specifying a longer scantimeout is that the recalculate operation
+     * is much faster because it is able to skip a lot of the work that was done in the original query. For example,
+     * pods that were already computed are not computed again.
      */
     @XmlAttribute
     private String recalculate;

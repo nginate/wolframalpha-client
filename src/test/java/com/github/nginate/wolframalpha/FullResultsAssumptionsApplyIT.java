@@ -40,4 +40,20 @@ public class FullResultsAssumptionsApplyIT {
         assertThat(results).hasSameSizeAs(assumption.getValues());
         assertThat(results).usingElementComparator(new QueryResultTestComparator()).contains(result);
     }
+
+    @Test
+    public void applyClashAssumptionsWithSelector() throws Exception {
+        String query = "pi";
+
+        QueryResult result = fullResultsApi.getFullResults(query, token);
+        Assumption assumption = findAssumptionByType(result.getAssumptions(), CLASH).get(0);
+
+        Set<QueryResult> results = assumption.getValues().stream()
+                .map(value -> fullResultsApi.withCustomSelection()
+                        .withAssumption(value.getInput())
+                        .getResults(query, token))
+                .collect(Collectors.toSet());
+        assertThat(results).hasSameSizeAs(assumption.getValues());
+        assertThat(results).usingElementComparator(new QueryResultTestComparator()).contains(result);
+    }
 }

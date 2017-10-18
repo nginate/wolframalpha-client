@@ -15,7 +15,7 @@ import static java.util.Locale.ENGLISH;
 public class TimeParser {
     private static final DateFormat format = new SimpleDateFormat("HH:mm:ss a zzz  |  EEEE, MMMM d, yyyy", ENGLISH);
 
-    static  {
+    static {
         format.setTimeZone(TimeZone.getTimeZone(ZoneOffset.UTC));
     }
 

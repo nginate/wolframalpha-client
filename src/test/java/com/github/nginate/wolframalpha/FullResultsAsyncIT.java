@@ -27,13 +27,17 @@ public class FullResultsAsyncIT {
 
     @Test
     public void asyncPodsNotEmpty() throws Exception {
-        QueryResult result = fullResultsApi.getFullResults("france", token, .1f);
+        QueryResult result = fullResultsApi.withCustomSelection()
+                .usingAsyncTimeout(.1f)
+                .getResults("france", token);
         assertThat(getAsyncPods(result)).isNotEmpty();
     }
 
     @Test
     public void asyncPodsEmpty() throws Exception {
-        QueryResult result = fullResultsApi.getFullResults("france", token, .0f);
+        QueryResult result = fullResultsApi.withCustomSelection()
+                .usingAsyncTimeout(.0f)
+                .getResults("france", token);
         assertThat(getAsyncPods(result)).isEmpty();
 
         QueryResult result2 = fullResultsApi.getFullResults("france", token);
@@ -46,7 +50,9 @@ public class FullResultsAsyncIT {
     @Ignore
     @Test
     public void retrieveAsyncPod() throws Exception {
-        QueryResult result = fullResultsApi.getFullResults("birds", token, .1f);
+        QueryResult result = fullResultsApi.withCustomSelection()
+                .usingAsyncTimeout(.1f)
+                 .getResults("birds", token);
         for (Pod pod : getAsyncPods(result)) {
             String async = pod.getAsync();
             assertThat(async).isNotEmpty();

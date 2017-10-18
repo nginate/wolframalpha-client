@@ -20,17 +20,17 @@ public class AsyncExpanderTest {
 
     @Test
     public void falseIsReturnedForNegative() throws Exception {
-        assertThat(asyncExpander.expand(-.1)).isEqualTo(Boolean.FALSE.toString());
+        assertThat(asyncExpander.expand(-.1f)).isEqualTo(Boolean.FALSE.toString());
     }
 
     @Test
     public void falseIsReturnedForZero() throws Exception {
-        assertThat(asyncExpander.expand(.0)).isEqualTo(Boolean.FALSE.toString());
+        assertThat(asyncExpander.expand(.0f)).isEqualTo(Boolean.FALSE.toString());
     }
 
     @Test
     public void timeIsReturnedForPositive() throws Exception {
-        Double value = .1;
+        Float value = .1f;
         assertThat(asyncExpander.expand(value)).isEqualTo(value.toString());
     }
 }

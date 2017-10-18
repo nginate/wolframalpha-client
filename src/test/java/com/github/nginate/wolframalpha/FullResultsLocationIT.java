@@ -40,6 +40,22 @@ public class FullResultsLocationIT {
     }
 
     @Test
+    public void testUTCTimeByIPWithSelector() throws Exception {
+        String saintHelenaIP = "197.155.128.0"; // UTC
+        String newZealandIP = "27.252.0.0"; // UTC+12
+        String request = "current time";
+
+        QueryResult utcResult = fullResultsApi.withCustomSelection()
+                .asLocatedAt(saintHelenaIP)
+                .getResults(request, token);
+        QueryResult utcOppositeResult = fullResultsApi.withCustomSelection()
+                .asLocatedAt(newZealandIP)
+                .getResults(request, token);
+
+        verifyTimeShiftAccordingToLocation(utcResult, utcOppositeResult);
+    }
+
+    @Test
     public void testUTCTimeByLocation() throws Exception {
         String request = "current time";
 
@@ -50,11 +66,39 @@ public class FullResultsLocationIT {
     }
 
     @Test
+    public void testUTCTimeByLocationWithSelector() throws Exception {
+        String request = "current time";
+
+        QueryResult utcResult = fullResultsApi.withCustomSelection()
+                .asLocatedIn("Saint Helena")
+                .getResults(request, token);
+        QueryResult utcOppositeResult = fullResultsApi.withCustomSelection()
+                .asLocatedIn("New Zealand")
+                .getResults(request, token);
+
+        verifyTimeShiftAccordingToLocation(utcResult, utcOppositeResult);
+    }
+
+    @Test
     public void testUTCTimeByCoordinates() throws Exception {
         String request = "current time";
 
         QueryResult utcResult = fullResultsApi.getFullResults(request, token, -15.945996, -5.687040);
         QueryResult utcOppositeResult = fullResultsApi.getFullResults(request, token, -41.292973, 174.764016);
+
+        verifyTimeShiftAccordingToLocation(utcResult, utcOppositeResult);
+    }
+
+    @Test
+    public void testUTCTimeByCoordinatesWithSelector() throws Exception {
+        String request = "current time";
+
+        QueryResult utcResult = fullResultsApi.withCustomSelection()
+                .asLocatedIn(-15.945996, -5.687040)
+                .getResults(request, token);
+        QueryResult utcOppositeResult = fullResultsApi.withCustomSelection()
+                .asLocatedIn(-41.292973, 174.764016)
+                .getResults(request, token);
 
         verifyTimeShiftAccordingToLocation(utcResult, utcOppositeResult);
     }

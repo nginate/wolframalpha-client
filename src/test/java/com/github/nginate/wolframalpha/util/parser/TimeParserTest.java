@@ -2,6 +2,9 @@ package com.github.nginate.wolframalpha.util.parser;
 
 import org.junit.Test;
 
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.TimeZone;
 

@@ -1,8 +1,9 @@
 package com.github.nginate.wolframalpha.shortanswer;
 
 import com.github.nginate.wolframalpha.model.Units;
-import feign.Param;
-import feign.RequestLine;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 /**
  * The Short Answers API returns a single plain text result directly from Wolfram|Alpha. In general, this text is taken
@@ -49,10 +50,10 @@ public interface ShortAnswersApi {
      *                instead of feet
      * @return plain text with response
      */
-    @RequestLine("GET /v1/result?i={literal}&appid={appid}&units={units}")
-    default String getShortAnswer(@Param("literal") String literal,
-                                  @Param("appid") String appId,
-                                  @Param("units") Units units) {
+    @GET("/v1/result")
+    default Call<String> getShortAnswer(@Query("i") String literal,
+                                        @Query("appid") String appId,
+                                        @Query("units") Units units) {
         return getShortAnswer(literal, appId, units, 5);
     }
 
@@ -71,9 +72,9 @@ public interface ShortAnswersApi {
      *                it may also affect the number and type of results returned by the Simple API.
      * @return plain text with response
      */
-    @RequestLine("GET /v1/result?i={literal}&appid={appid}&units={units}&timeout={timeout}")
-    String getShortAnswer(@Param("literal") String literal,
-                          @Param("appid") String appId,
-                          @Param("units") Units units,
-                          @Param("timeout") int timeout);
+    @GET("/v1/result")
+    Call<String> getShortAnswer(@Query("i") String literal,
+                                @Query("appid") String appId,
+                                @Query("units") Units units,
+                                @Query("timeout") int timeout);
 }

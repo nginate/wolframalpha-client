@@ -11,7 +11,10 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.StringReader;
 import java.lang.reflect.Type;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+
+import static feign.Util.UTF_8;
 
 @UtilityClass
 public class SerializationUtil {
@@ -39,5 +42,10 @@ public class SerializationUtil {
         return new JAXBContextFactory.Builder()
                 .withMarshallerJAXBEncoding(StandardCharsets.UTF_8.name())
                 .build();
+    }
+
+    @SneakyThrows
+    public static String urlEncode(Object arg) {
+        return URLEncoder.encode(String.valueOf(arg), UTF_8.name());
     }
 }

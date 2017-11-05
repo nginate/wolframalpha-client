@@ -2,8 +2,9 @@ package com.github.nginate.wolframalpha.simple;
 
 import com.github.nginate.wolframalpha.model.Layout;
 import com.github.nginate.wolframalpha.model.Units;
-import feign.Param;
-import feign.RequestLine;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 /**
  * Immediately get simple images of complete Wolfram|Alpha result pages with the Simple API.
@@ -56,16 +57,7 @@ public interface SimpleApi {
      *                 it may also affect the number and type of results returned by the Simple API.
      * @return image file
      */
-    @RequestLine("GET /v1/simple?i={literal}" +
-            "&appid={appid}" +
-            "&fontsize={fontsize}" +
-            "&width={width}" +
-            "&timeout={timeout}")
-    default byte[] query(@Param("literal") String literal,
-                         @Param("appid") String appId,
-                         @Param("fontsize") int fontsize,
-                         @Param("width") int width,
-                         @Param("timeout") int timeout) {
+    default Call<byte[]> query(String literal, String appId, int fontsize, int width, int timeout) {
         return query(literal, appId, null, null, null, fontsize, width, null, timeout);
     }
 
@@ -103,22 +95,14 @@ public interface SimpleApi {
      *                   although it may also affect the number and type of results returned by the Simple API.
      * @return image file
      */
-    @RequestLine("GET /v1/simple?i={literal}" +
-            "&appid={appid}" +
-            "&layout={layout}" +
-            "&background={background}" +
-            "&foreground={foreground}" +
-            "&fontsize={fontsize}" +
-            "&width={width}" +
-            "&units={units}" +
-            "&timeout={timeout}")
-    byte[] query(@Param("literal") String literal,
-                 @Param("appid") String appId,
-                 @Param("layout") Layout layout,
-                 @Param("background") String background,
-                 @Param("foreground") String foreground,
-                 @Param("fontsize") int fontsize,
-                 @Param("width") int width,
-                 @Param("units") Units units,
-                 @Param("timeout") int timeout);
+    @GET("/v1/simple")
+    Call<byte[]> query(@Query("i") String literal,
+                       @Query("appid") String appId,
+                       @Query("layout") Layout layout,
+                       @Query("background") String background,
+                       @Query("foreground") String foreground,
+                       @Query("fontsize") int fontsize,
+                       @Query("width") int width,
+                       @Query("units") Units units,
+                       @Query("timeout") int timeout);
 }

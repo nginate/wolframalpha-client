@@ -89,7 +89,7 @@ public class FullResultsApiIT {
 
     @Test
     public void rectanglesNonEmptyForImagemapFormat() throws Exception {
-        QueryResult result = fullResultsApi.getFullResults("france", token, IMAGEMAP, IMAGE);
+        QueryResult result = fullResultsApi.getFullResults("France", token, IMAGEMAP, IMAGE);
         List<ImageRectangle> rectangles = result.getPods().stream()
                 .flatMap(pod -> pod.getSubpods().stream())
                 .map(Subpod::getImageMap)

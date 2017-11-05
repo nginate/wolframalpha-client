@@ -6,12 +6,12 @@ import javax.xml.bind.annotation.*;
 import java.util.List;
 
 /**
- * <pod> elements are the main output of the Full Results API. Each pod contains a piece or category of information
+ * 'pod' elements are the main output of the Full Results API. Each pod contains a piece or category of information
  * about the given query.
  */
 @Data
 @XmlType(name = "pod")
-@XmlRootElement(name = "pod")
+//@XmlRootElement(name = "queryresult")
 @XmlAccessorType(XmlAccessType.NONE)
 public class Pod {
     /**
@@ -21,7 +21,7 @@ public class Pod {
     private String title;
     /**
      * true or false depending on whether a serious processing error occurred with this specific pod. If true, there
-     * will be an <error> subelement
+     * will be an 'error' subelement
      */
     @XmlAttribute
     private Boolean error;

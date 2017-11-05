@@ -1,16 +1,19 @@
 package com.github.nginate.wolframalpha;
 
 import com.github.nginate.wolframalpha.full.FullResultsApi;
+import com.github.nginate.wolframalpha.retrofit.PayloadAdapter;
+import com.github.nginate.wolframalpha.retrofit.converter.factory.ByteArrayConverterFactory;
+import com.github.nginate.wolframalpha.retrofit.converter.factory.FullApiConverterFactory;
+import com.github.nginate.wolframalpha.retrofit.interceptor.DocumentedErrorsInterceptor;
+import com.github.nginate.wolframalpha.retrofit.interceptor.LoggingInterceptor;
 import com.github.nginate.wolframalpha.shortanswer.ShortAnswersApi;
 import com.github.nginate.wolframalpha.simple.SimpleApi;
 import com.github.nginate.wolframalpha.spoken.SpokenResultsApi;
-import feign.Feign;
-import feign.Logger;
-import feign.jaxb.JAXBDecoder;
-import feign.slf4j.Slf4jLogger;
 import lombok.experimental.UtilityClass;
-
-import static com.github.nginate.wolframalpha.util.SerializationUtil.buildJAXBFactory;
+import okhttp3.OkHttpClient;
+import retrofit2.Retrofit;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
+import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 /**
  * Utility configurations to provide client for particular APIs
@@ -26,64 +29,42 @@ public class ClientFactory {
      * @return Simple API client
      */
     public static SimpleApi simpleApiClient() {
-        return simpleApiClient(Logger.Level.FULL, url);
-    }
-
-    /**
-     * Build Simple API client using default API url (https://api.wolframalpha.com)
-     *
-     * @param logLevel logging level to use for internal feign flow
-     * @return Simple API client
-     */
-    public static SimpleApi simpleApiClient(Logger.Level logLevel) {
-        return simpleApiClient(logLevel, url);
+        return simpleApiClient(url);
     }
 
     /**
      * Build Simple API client
      *
-     * @param logLevel logging level to use for internal feign flow
-     * @param url      API url
+     * @param url API url
      * @return Simple API client
      */
-    public static SimpleApi simpleApiClient(Logger.Level logLevel, String url) {
-        return Feign.builder()
-                .logger(new Slf4jLogger())
-                .logLevel(logLevel)
-                .target(SimpleApi.class, url);
+    public static SimpleApi simpleApiClient(String url) {
+        Retrofit retrofit = getRetrofit(url)
+                .addConverterFactory(ByteArrayConverterFactory.create())
+                .build();
+        return retrofit.create(SimpleApi.class);
     }
 
     /**
-     * Build Spoken results API client using default API url (https://api.wolframalpha.com) and log level (FULL)
+     * Build Spoken results API client using default API url (https://api.wolframalpha.com
      *
      * @return Spoken results API client
      */
     public static SpokenResultsApi spokenResultsApi() {
-        return spokenResultsApi(Logger.Level.FULL);
-    }
-
-    /**
-     * Build Spoken results API client using default API url (https://api.wolframalpha.com)
-     *
-     * @param logLevel logging level to use for internal feign flow
-     * @return Spoken results API client
-     */
-    public static SpokenResultsApi spokenResultsApi(Logger.Level logLevel) {
-        return spokenResultsApi(logLevel, url);
+        return spokenResultsApi(url);
     }
 
     /**
      * Build Spoken results API client
      *
-     * @param logLevel logging level to use for internal feign flow
-     * @param url      API url
+     * @param url API url
      * @return Spoken results API client
      */
-    public static SpokenResultsApi spokenResultsApi(Logger.Level logLevel, String url) {
-        return Feign.builder()
-                .logger(new Slf4jLogger())
-                .logLevel(logLevel)
-                .target(SpokenResultsApi.class, url);
+    public static SpokenResultsApi spokenResultsApi(String url) {
+        Retrofit retrofit = getRetrofit(url)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .build();
+        return retrofit.create(SpokenResultsApi.class);
     }
 
     /**
@@ -92,31 +73,20 @@ public class ClientFactory {
      * @return Short answers API client
      */
     public static ShortAnswersApi shortAnswersApi() {
-        return shortAnswersApi(Logger.Level.FULL, url);
+        return shortAnswersApi(url);
     }
 
     /**
      * Build Short answers API client
      *
-     * @param logLevel logging level to use for internal feign flow
+     * @param url API url
      * @return Short answers API client
      */
-    public static ShortAnswersApi shortAnswersApi(Logger.Level logLevel) {
-        return shortAnswersApi(logLevel, url);
-    }
-
-    /**
-     * Build Short answers API client
-     *
-     * @param logLevel logging level to use for internal feign flow
-     * @param url      API url
-     * @return Short answers API client
-     */
-    public static ShortAnswersApi shortAnswersApi(Logger.Level logLevel, String url) {
-        return Feign.builder()
-                .logger(new Slf4jLogger())
-                .logLevel(logLevel)
-                .target(ShortAnswersApi.class, url);
+    public static ShortAnswersApi shortAnswersApi(String url) {
+        Retrofit retrofit = getRetrofit(url)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .build();
+        return retrofit.create(ShortAnswersApi.class);
     }
 
     /**
@@ -125,31 +95,31 @@ public class ClientFactory {
      * @return Full results API client
      */
     public static FullResultsApi fullResultsApi() {
-        return fullResultsApi(Logger.Level.FULL, url);
+        return fullResultsApi(url);
     }
 
     /**
      * Build Full results API client
      *
-     * @param logLevel logging level to use for internal feign flow
+     * @param url API url
      * @return Full results API client
      */
-    public static FullResultsApi fullResultsApi(Logger.Level logLevel) {
-        return fullResultsApi(logLevel, url);
+    public static FullResultsApi fullResultsApi(String url) {
+        Retrofit retrofit = getRetrofit(url)
+                .addConverterFactory(FullApiConverterFactory.create())
+                .addCallAdapterFactory(new PayloadAdapter())
+                .build();
+        return retrofit.create(FullResultsApi.class);
     }
 
-    /**
-     * Build Full results API client
-     *
-     * @param logLevel logging level to use for internal feign flow
-     * @param url      API url
-     * @return Full results API client
-     */
-    public static FullResultsApi fullResultsApi(Logger.Level logLevel, String url) {
-        return Feign.builder()
-                .logger(new Slf4jLogger())
-                .logLevel(logLevel)
-                .decoder(new JAXBDecoder(buildJAXBFactory()))
-                .target(FullResultsApi.class, url);
+    private static Retrofit.Builder getRetrofit(String url) {
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(new LoggingInterceptor())
+                .addInterceptor(new DocumentedErrorsInterceptor())
+                .build();
+
+        return new Retrofit.Builder()
+                .baseUrl(url)
+                .client(client);
     }
 }

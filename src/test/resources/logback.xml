@@ -60,6 +60,6 @@
         </else>
     </if>
 
-    <logger name="com.github.nginate" level="DEBUG"/>
+    <logger name="com.github.nginate" level="TRACE"/>
     <logger name="feign.Logger" level="TRACE"/>
 </configuration>

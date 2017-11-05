@@ -1,4 +1,4 @@
-package com.github.nginate.wolframalpha.feign.adapter;
+package com.github.nginate.wolframalpha.retrofit;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 

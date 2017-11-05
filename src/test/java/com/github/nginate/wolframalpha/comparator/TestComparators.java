@@ -1,7 +1,6 @@
 package com.github.nginate.wolframalpha.comparator;
 
 import com.github.nginate.wolframalpha.model.*;
-import com.sun.org.apache.xerces.internal.dom.ElementImpl;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
@@ -115,8 +114,8 @@ public class TestComparators {
                 .thenComparing(States.State::getInput);
     }
 
-    public static Comparator<ElementImpl> mathMlComparator() {
-        return Comparator.comparing(ElementImpl::toString);
+    public static Comparator<Map<String, Object>> mathMlComparator() {
+        return (o1, o2) -> Boolean.compare(o1.equals(o2), true);
     }
 
     public static Comparator<ImageMap> imageMapComparator() {

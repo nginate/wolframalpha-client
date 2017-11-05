@@ -1,26 +1,26 @@
 package com.github.nginate.wolframalpha.full;
 
-import com.github.nginate.wolframalpha.feign.AsyncExpander;
-import com.github.nginate.wolframalpha.feign.CommaJoinerExpander;
-import com.github.nginate.wolframalpha.feign.GeoCoordsExpander;
 import com.github.nginate.wolframalpha.model.Pod;
 import com.github.nginate.wolframalpha.model.QueryResult;
 import com.github.nginate.wolframalpha.model.ResultFormat;
 import com.github.nginate.wolframalpha.model.params.GeoCoordinates;
 import com.github.nginate.wolframalpha.model.selection.Selector;
-import feign.Feign;
-import feign.Logger;
-import feign.Param;
-import feign.RequestLine;
-import feign.jaxb.JAXBDecoder;
-import feign.slf4j.Slf4jLogger;
+import com.github.nginate.wolframalpha.retrofit.BooleanTimeout;
+import com.github.nginate.wolframalpha.retrofit.PayloadAdapter;
+import com.github.nginate.wolframalpha.retrofit.interceptor.DocumentedErrorsInterceptor;
+import com.github.nginate.wolframalpha.retrofit.interceptor.LoggingInterceptor;
 import lombok.SneakyThrows;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import retrofit2.Retrofit;
+import retrofit2.converter.jackson.JacksonConverterFactory;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.github.nginate.wolframalpha.util.SerializationUtil.buildJAXBFactory;
 import static java.lang.String.format;
 
 /**
@@ -53,14 +53,20 @@ public interface FullResultsApi {
     @SneakyThrows
     @Deprecated
     default Pod loadPodAsync(String asyncPodUri) {
-        URL url = new URL(asyncPodUri);
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(new LoggingInterceptor())
+                .addInterceptor(new DocumentedErrorsInterceptor())
+                .build();
 
-        return Feign.builder()
-                .decoder(new JAXBDecoder(buildJAXBFactory()))
-                .logLevel(Logger.Level.FULL)
-                .logger(new Slf4jLogger())
-                .target(AsyncPodApi.class, format("%s://%s", url.getProtocol(), url.getHost()))
-                .getAsyncPod(url.getQuery().substring(3));
+        HttpUrl httpUrl = HttpUrl.parse(asyncPodUri);
+        return new Retrofit.Builder()
+                .baseUrl(format("%s://%s/", httpUrl.scheme(), httpUrl.host()))
+                .client(client)
+                .addConverterFactory(JacksonConverterFactory.create())
+                .addCallAdapterFactory(new PayloadAdapter())
+                .build()
+                .create(AsyncPodApi.class)
+                .getAsyncPod(new URL(asyncPodUri).getQuery().substring(3));
     }
 
     /**
@@ -286,39 +292,34 @@ public interface FullResultsApi {
      * @return query result
      * @see QueryResult
      */
-    @RequestLine("GET /v2/query?input={input}&appid={appid}&format={format}&assumption={assumption}" +
-            "&location={location}&latlong={latlong}&ip={ip}&podstate={podstate}&async={async}&scantimeout" +
-            "={scantimeout}&podtimeout={podtimeout}&formattimeout={formattimeout}&parsetimeout={parsetimeout" +
-            "}&totaltimeout={totaltimeout}&includepodid={includepodid}&excludepodid={excludepodid}&podtitle={podtitle" +
-            "}&podindex={podindex}&scanner={scanner}")
-    QueryResult getFullResults(@Param("input") String input,
-                               @Param("appid") String appId,
-                               @Param(value = "format", expander = CommaJoinerExpander.class)
+    @GET("/v2/query")
+    QueryResult getFullResults(@Query("input") String input,
+                               @Query("appid") String appId,
+                               @Query(value = "format", encoded = true, rawProcessing = true)
                                        List<ResultFormat> formats,
-                               @Param("assumption") List<String> assumptions,
-                               @Param("location") String location,
-                               @Param(value = "latlong", expander = GeoCoordsExpander.class, encoded = true)
-                                       GeoCoordinates latlong,
-                               @Param("ip") String ip,
-                               @Param("podstate") List<String> podStates,
-                               @Param(value = "async", expander = AsyncExpander.class) Float async,
-                               @Param("scantimeout") Float scantimeout,
-                               @Param("podtimeout") Float podtimeout,
-                               @Param("formattimeout") Float formattimeout,
-                               @Param("parsetimeout") Float parsetimeout,
-                               @Param("totaltimeout") Float totaltimeout,
-                               @Param("includepodid") List<String> includedPodIds,
-                               @Param("excludepodid") List<String> excludedPodIds,
-                               @Param("podtitle") List<String> podTitles,
-                               @Param("podindex") List<Integer> podIndexes,
-                               @Param("scanner") List<String> scanners);
+                               @Query("assumption") List<String> assumptions,
+                               @Query("location") String location,
+                               @Query(value = "latlong", encoded = true) GeoCoordinates latlong,
+                               @Query("ip") String ip,
+                               @Query("podstate") List<String> podStates,
+                               @Query("async") @BooleanTimeout Float async,
+                               @Query("scantimeout") Float scantimeout,
+                               @Query("podtimeout") Float podtimeout,
+                               @Query("formattimeout") Float formattimeout,
+                               @Query("parsetimeout") Float parsetimeout,
+                               @Query("totaltimeout") Float totaltimeout,
+                               @Query("includepodid") List<String> includedPodIds,
+                               @Query("excludepodid") List<String> excludedPodIds,
+                               @Query("podtitle") List<String> podTitles,
+                               @Query("podindex") List<Integer> podIndexes,
+                               @Query("scanner") List<String> scanners);
 
 
     /**
      * Helper API to wrap dynamic pod retrieval by parsing async url and building special client per each unique URL
      */
     interface AsyncPodApi {
-        @RequestLine("GET /api/v2/asyncPod.jsp?id={id}")
-        Pod getAsyncPod(@Param(value = "id", encoded = true) String id);
+        @GET("api/v2/asyncPod.jsp")
+        Pod getAsyncPod(@Query(value = "id", encoded = true) String id);
     }
 }

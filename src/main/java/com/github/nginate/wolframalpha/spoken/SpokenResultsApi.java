@@ -1,8 +1,9 @@
 package com.github.nginate.wolframalpha.spoken;
 
 import com.github.nginate.wolframalpha.model.Units;
-import feign.Param;
-import feign.RequestLine;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 /**
  * The Spoken Results API returns text results phrased in full sentence form. This API is ideal for applications that
@@ -51,10 +52,7 @@ public interface SpokenResultsApi {
      *                instead of feet
      * @return text results phrased in full sentence form
      */
-    @RequestLine("GET /v1/spoken?i={literal}&appid={appid}&units={units}")
-    default String getSpokenResults(@Param("literal") String literal,
-                                    @Param("appid") String appId,
-                                    @Param("units") Units units) {
+    default Call<String> getSpokenResults(String literal, String appId, Units units) {
         return getSpokenResults(literal, appId, units, 5);
     }
 
@@ -73,9 +71,9 @@ public interface SpokenResultsApi {
      *                it may also affect the number and type of results returned by the Simple API.
      * @return text results phrased in full sentence form
      */
-    @RequestLine("GET /v1/spoken?i={literal}&appid={appid}&units={units}&timeout={timeout}")
-    String getSpokenResults(@Param("literal") String literal,
-                            @Param("appid") String appId,
-                            @Param("units") Units units,
-                            @Param("timeout") int timeout);
+    @GET("/v1/spoken")
+    Call<String> getSpokenResults(@Query("i") String literal,
+                                  @Query("appid") String appId,
+                                  @Query("units") Units units,
+                                  @Query("timeout") int timeout);
 }

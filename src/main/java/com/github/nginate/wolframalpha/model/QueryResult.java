@@ -54,6 +54,16 @@ public class QueryResult {
      */
     @XmlAttribute(required = true)
     private List<String> timedout;
+    @XmlAttribute
+    private List<String> timedoutpods;
+    @XmlAttribute
+    private String id;
+    @XmlAttribute
+    private String host;
+    @XmlAttribute
+    private String server;
+    @XmlAttribute
+    private String related;
     /**
      * The time in seconds required by the parsing phase.
      */
@@ -77,14 +87,14 @@ public class QueryResult {
     @XmlAttribute
     private String recalculate;
     /**
-     * <pod> elements are the main output of the Full Results API. Each pod contains a piece or category of information
+     * 'pod' elements are the main output of the Full Results API. Each pod contains a piece or category of information
      * about the given query. It has the following attributes
      */
     @XmlElement(name = "pod")
     private List<Pod> pods;
     /**
-     * The <assumptions> element is a subelement of <queryresult>. Its content is a series of <assumption> elements. It
-     * has a count attribute, giving the number of <assumption> subelements. See the “Assumptions” section of the main
+     * The 'assumptions' element is a subelement of 'queryresult'. Its content is a series of 'assumption' elements. It
+     * has a count attribute, giving the number of 'assumption' subelements. See the “Assumptions” section of the main
      * text for more details.
      */
     @XmlElement

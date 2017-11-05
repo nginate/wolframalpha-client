@@ -8,6 +8,9 @@ plugins {
 
 ext {
     feignVersion = "9.5.1"
+    retrofitVersion = "2.3.0"
+    okHttpVersion = "3.9.0"
+    slf4jVersion="1.7.25"
 }
 
 apply plugin: "java"
@@ -25,11 +28,22 @@ dependencies {
     compile "io.github.openfeign:feign-jackson:${feignVersion}"
     compile "io.github.openfeign:feign-jaxb:${feignVersion}"
     compile "io.github.openfeign:feign-slf4j:${feignVersion}"
-    compile "org.slf4j:slf4j-api:1.7.25"
 
+    compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"
+    compile "com.squareup.retrofit2:converter-jackson:${retrofitVersion}"
+    compile "com.squareup.retrofit2:converter-scalars:${retrofitVersion}"
+    compile "com.squareup.retrofit2:converter-simplexml:${retrofitVersion}"
+
+    compile "com.squareup.okhttp3:okhttp:${okHttpVersion}"
+    compile "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}"
+
+    compile "org.slf4j:slf4j-api:${slf4jVersion}"
+    compile "org.slf4j:jul-to-slf4j:${slf4jVersion}"
     compile "com.google.code.findbugs:jsr305:3.0.2", optional
     compile "org.projectlombok:lombok:1.16.18", optional
     compile "javax.validation:validation-api:2.0.0.Final", optional
+    compile "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.9.0"
+    compile "com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.9.0"
 
     testRuntime "org.codehaus.janino:janino:3.0.7"
 

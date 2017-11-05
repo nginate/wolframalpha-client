@@ -1,9 +1,9 @@
 package com.github.nginate.wolframalpha.model;
 
-import com.sun.org.apache.xerces.internal.dom.ElementNSImpl;
 import lombok.Data;
 
 import javax.xml.bind.annotation.*;
+import java.util.Map;
 
 @Data
 @XmlType(name = "subpod")
@@ -24,7 +24,7 @@ public class Subpod {
     @XmlElement
     private String plaintext;
     @XmlElement(name = "mathml")
-    private ElementNSImpl mathMl;
+    private Map<String, Object> mathMl;
     /**
      * This is the text format that you see in the "Mathematica plaintext input" popup that appears when you click some
      * results on the Wolfram|Alpha site. Some results can be generated directly by single Mathematica input

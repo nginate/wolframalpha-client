@@ -1,16 +1,17 @@
-package com.github.nginate.wolframalpha.feign;
+package com.github.nginate.wolframalpha.retrofit.converter;
 
 import com.github.nginate.wolframalpha.model.params.GeoCoordinates;
-import feign.Param;
+import retrofit2.Converter;
 
+import javax.annotation.Nullable;
+import java.io.IOException;
 import java.util.Locale;
 
 import static java.lang.String.format;
 
-public class GeoCoordsExpander implements Param.Expander {
-
+public class GeoCoordsConverter implements Converter<GeoCoordinates, String> {
     @Override
-    public String expand(Object value) {
+    public String convert(@Nullable GeoCoordinates value) throws IOException {
         if (value == null) {
             return null;
         }

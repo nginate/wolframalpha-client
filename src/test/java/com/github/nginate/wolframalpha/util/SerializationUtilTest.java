@@ -1,6 +1,6 @@
 package com.github.nginate.wolframalpha.util;
 
-import com.github.nginate.wolframalpha.feign.adapter.CDATAAdapter;
+import com.github.nginate.wolframalpha.retrofit.CDATAAdapter;
 import com.github.nginate.wolframalpha.model.Cell;
 import com.github.nginate.wolframalpha.model.QueryResult;
 import com.sun.org.apache.xerces.internal.dom.ElementNSImpl;

@@ -13,7 +13,6 @@ import lombok.experimental.UtilityClass;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
-import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 /**
  * Utility configurations to provide client for particular APIs

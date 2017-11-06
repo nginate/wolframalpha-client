@@ -24,15 +24,10 @@ repositories {
 }
 
 dependencies {
-    compile "io.github.openfeign:feign-core:${feignVersion}"
-    compile "io.github.openfeign:feign-jackson:${feignVersion}"
-    compile "io.github.openfeign:feign-jaxb:${feignVersion}"
-    compile "io.github.openfeign:feign-slf4j:${feignVersion}"
-
     compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"
     compile "com.squareup.retrofit2:converter-jackson:${retrofitVersion}"
     compile "com.squareup.retrofit2:converter-scalars:${retrofitVersion}"
-    compile "com.squareup.retrofit2:converter-simplexml:${retrofitVersion}"
+//    compile "com.squareup.retrofit2:converter-simplexml:${retrofitVersion}"
 
     compile "com.squareup.okhttp3:okhttp:${okHttpVersion}"
     compile "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}"
